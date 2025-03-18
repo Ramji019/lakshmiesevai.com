@@ -1384,3 +1384,5 @@ alter table tnega_services add institute_name_english text DEFAULT NULL after in
 alter table tnega_services add institute_address_tamil text DEFAULT NULL after institute_name_english;
 alter table tnega_services add institute_address_english text DEFAULT NULL after institute_address_tamil;
 
+//18-03-2025
+alter table pancard add opid text Default NULL;
