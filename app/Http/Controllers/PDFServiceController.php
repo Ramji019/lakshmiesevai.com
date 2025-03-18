@@ -174,7 +174,11 @@ class PDFServiceController extends Controller
     $apikey = '3e2a83212d3e5e4755390b84612f110d45d393c8c75946786de9ea4f283dcaa9'; // Base 64 api Key Here
     $application_no = rand(00000000,99999999); // Application Number
 
-    $url = "https://goodapi.in/serviceApi/V1/panFind?apiKey=$apikey&order_id=$application_no&uidNumber=$aadhaar";
+    if($request->ser == 1){
+      $url = "https://goodapi.in/serviceApi/V1/panFind?apiKey=$apikey&order_id=$application_no&uidNumber=$aadhaar";
+    }else{
+       $url = "https://upbgroup.aisensy.in/api/data_fetch?api_key=b8180f-dff10d-75e341-17953e-09e93b&application_no=$application_no&aadhaar_no=$aadhaar";
+    }
 
     $curl = curl_init();
     curl_setopt_array($curl, array(
@@ -191,8 +195,14 @@ class PDFServiceController extends Controller
     curl_close($curl);
     $resdata = json_decode($response,true);
     // dd($resdata);
-    if($resdata){
-      if($resdata['Status'] == "Success"){
+  if($resdata){
+      $status = "";
+      if($request->ser == 1){
+        $status = $resdata['Status'];
+      }else{
+        $status = $resdata['status'];
+      }
+      if(($request->ser == 1 && $status == "Success") || ($request->ser == 2 && $status == "true")){
         $pan=$resdata['pan_no'];
         $message=$resdata['message'];
         DB::table('pancard_find')->insert([
