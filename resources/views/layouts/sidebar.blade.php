@@ -16,8 +16,9 @@
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
                             <li><a href="{{ url('/appliedservice') }}/Pending">Pending</a></li>
-                            <li><a href="{{ url('/appliedservice') }}/Processing">Processing</a></li>
                             <li><a href="{{ url('/appliedservice') }}/Resubmit">Resubmit</a></li>
+                            <li><a href="{{ url('/appliedservice') }}/Processing">Processing</a></li>
+                            <li><a href="{{ url('/appliedservice') }}/Rejected">Rejected</a></li>
                             <li><a href="{{ url('/appliedservice') }}/Approved">Approved</a></li>
                         </ul>
                     </li>
@@ -155,8 +156,9 @@
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
                             <li><a href="{{ url('/appliedservice') }}/Pending">Pending</a></li>
-                            <li><a href="{{ url('/appliedservice') }}/Processing">Processing</a></li>
                             <li><a href="{{ url('/appliedservice') }}/Resubmit">Resubmit</a></li>
+                            <li><a href="{{ url('/appliedservice') }}/Processing">Processing</a></li>
+                            <li><a href="{{ url('/appliedservice') }}/Rejected">Rejected</a></li>
                             <li><a href="{{ url('/appliedservice') }}/Approved">Approved</a></li>
                         </ul>
                     </li>
@@ -291,8 +293,9 @@
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
                             <li><a href="{{ url('/appliedservice') }}/Pending">Pending</a></li>
-                            <li><a href="{{ url('/appliedservice') }}/Processing">Processing</a></li>
                             <li><a href="{{ url('/appliedservice') }}/Resubmit">Resubmit</a></li>
+                            <li><a href="{{ url('/appliedservice') }}/Processing">Processing</a></li>
+                            <li><a href="{{ url('/appliedservice') }}/Rejected">Rejected</a></li>
                             <li><a href="{{ url('/appliedservice') }}/Approved">Approved</a></li>
                         </ul>
                     </li>
@@ -376,8 +379,9 @@
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
                             <li><a href="{{ url('/appliedservice') }}/Pending">Pending</a></li>
-                            <li><a href="{{ url('/appliedservice') }}/Processing">Processing</a></li>
                             <li><a href="{{ url('/appliedservice') }}/Resubmit">Resubmit</a></li>
+                            <li><a href="{{ url('/appliedservice') }}/Processing">Processing</a></li>
+                            <li><a href="{{ url('/appliedservice') }}/Rejected">Rejected</a></li>
                             <li><a href="{{ url('/appliedservice') }}/Approved">Approved</a></li>
                         </ul>
                     </li>
@@ -453,8 +457,9 @@
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
                             <li><a href="{{ url('/appliedservice') }}/Pending">Pending</a></li>
-                            <li><a href="{{ url('/appliedservice') }}/Processing">Processing</a></li>
                             <li><a href="{{ url('/appliedservice') }}/Resubmit">Resubmit</a></li>
+                            <li><a href="{{ url('/appliedservice') }}/Processing">Processing</a></li>
+                            <li><a href="{{ url('/appliedservice') }}/Rejected">Rejected</a></li>
                             <li><a href="{{ url('/appliedservice') }}/Approved">Approved</a></li>
                         </ul>
                     </li>

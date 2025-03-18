@@ -258,7 +258,15 @@ public function applyservice($serviceid,$customerid) {
 
  }elseif ($serviceid == 170 || $serviceid == 171 || $serviceid == 172 || $serviceid == 176 || $serviceid == 177 ||$serviceid == 178 ){
      return view( 'applyservice.tnegaservice5',compact('serviceid','districts','servicename','amount','customers','payment'));
- }
+
+}  elseif ($serviceid == 15){
+    return view( 'applyservice.tnegaservice6',compact('serviceid','districts','servicename','amount','customers','payment'));
+
+} elseif ($serviceid == 60 || $serviceid == 62 || $serviceid == 63 || $serviceid == 64 || $serviceid == 65 || $serviceid == 66 || $serviceid == 67 || $serviceid == 121){
+    return view( 'applyservice.caneditservice',compact('serviceid','districts','servicename','amount','customers','payment'));
+
+}
+
 }
 
 public function applyservices($serviceid) {
@@ -394,6 +402,7 @@ public function applyservices($serviceid) {
 
 }  elseif ($serviceid == 183 || $serviceid == 184 || $serviceid == 185 || $serviceid == 186){
  return view( 'applyservice.dharsanservice',compact('serviceid','districts','servicename','amount','customers','payment'));
+
 }  elseif ($serviceid == 187 ){
     return view( 'applyservice.dharsanservice',compact('serviceid','districts','servicename','amount','customers','payment'));
    }
@@ -484,7 +493,7 @@ public function submitapply_tnegaservices1(Request $request){
         $user_id = Auth::user()->id;
     }
     $serviceid = $request ->serviceid;
-    DB::table( 'tnega_services' )->insert( [
+   DB::table( 'tnega_services' )->insert( [
         'user_id'  =>   $user_id,
         'retailer_id'  =>   $retailer_id,
         'distributor_id'  =>   $distributor_id,
@@ -493,8 +502,8 @@ public function submitapply_tnegaservices1(Request $request){
         'can_details'        => $request->can_details,
         'personalized'        => $request->personalized,
         'relationship_1'        => $request->relationship_1,
-        'relationship_2'        => $request->relationship_2,
-        'relationship_3'        => $request->relationship_3,
+        'mother_name_tamil'        => $request->mother_name_tamil,
+        'mother_name_english'        => $request->mother_name_english,
         'dob'        => $request->dob,
         'religion'        => $request->religion,
         'education'        => $request->education,
@@ -502,22 +511,22 @@ public function submitapply_tnegaservices1(Request $request){
         'door_no'        => $request->door_no,
         'personalized_name_tamil'        => $request->personalized_name_tamil,
         'relationship_name_tamil_1'        => $request->relationship_name_tamil_1,
-        'relationship_name_tamil_2'        => $request->relationship_name_tamil_2,
-        'relationship_name_tamil_3'        => $request->relationship_name_tamil_3,
         'community'        => $request->community,
         'smartcard_number'        => $request->smartcard_number,
         'street_name_tamil'        => $request->street_name_tamil,
-        'postal_name'        => $request->postal_name,
         'personalized_name_english'        => $request->personalized_name_english,
         'relationship_name_english_1'        => $request->relationship_name_english_1,
-        'relationship_name_english_2'        => $request->relationship_name_english_2,
-        'relationship_name_english_3'        => $request->relationship_name_english_3,
         'maritial_status'        => $request->maritial_status,
         'caste'        => $request->caste,
         'street_name'        => $request->street_name,
         'pin_code'        => $request->pin_code,
-        'village_administrative_area'        => $request->village_administrative_area,
         'can_number'        => $request->can_number,
+        'postal_area_tamil'        => $request->postal_area_tamil,
+        'postal_area_english'        => $request->postal_area_english,
+        'father_community'        => $request->father_community,
+        'father_caste'        => $request->father_caste,
+        'mother_community'        => $request->mother_community,
+        'mother_caste'        => $request->mother_caste,
         'status'        => 'Pending',
         'applied_date'  => date("Y-m-d"),
         'created_at'    => date("Y-m-d"),
@@ -548,14 +557,28 @@ public function submitapply_tnegaservices1(Request $request){
 
     }elseif($serviceid == 3){
         $tc_community_certificate = "";
+        $affidavit = "";
+        $self_community_certificate = "";
         if ($request->tc_community_certificate != null) {
             $tc_community_certificate = uniqid().'.'.$request->file('tc_community_certificate')->extension();
             $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR. 'tc_community_certificate' . DIRECTORY_SEPARATOR);
             move_uploaded_file($_FILES['tc_community_certificate']['tmp_name'], $filepath . $tc_community_certificate);
         }
+        if ($request->affidavit != null) {
+            $affidavit = uniqid().'.'.$request->file('affidavit')->extension();
+            $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR. 'affidavit' . DIRECTORY_SEPARATOR);
+            move_uploaded_file($_FILES['affidavit']['tmp_name'], $filepath . $affidavit);
+        }
+        if ($request->self_community_certificate != null) {
+            $self_community_certificate = uniqid().'.'.$request->file('self_community_certificate')->extension();
+            $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR. 'self_community_certificate' . DIRECTORY_SEPARATOR);
+            move_uploaded_file($_FILES['self_community_certificate']['tmp_name'], $filepath . $self_community_certificate);
+        }
         DB::table('tnega_services')->where('id', $insertid)->update([
             'relationship'                     => $request->relationship,
             'tc_community_certificate'         => $tc_community_certificate,
+            'affidavit'                        => $affidavit,
+            'self_community_certificate'       => $self_community_certificate,
         ]);
     }
     elseif($serviceid == 4){
@@ -659,7 +682,19 @@ public function submitapply_tnegaservices1(Request $request){
         ]);
 
     }
-
+    if($request->has('family_relationship')){
+        foreach ( $request->family_relationship as $key => $relation ) {
+          $relation_name = $request->relation_name[ $key ];
+          $relation_name_tamil = $request->relation_name_tamil[ $key ];
+          $relation_age = $request->relation_age[ $key ];
+          $occupation = $request->occupation[ $key ];
+         
+          $sql = "insert into family_member (service_id,relation,relation_name,relation_name_tamil,relation_age,occupation) values ($insertid,'$relation','$relation_name','$relation_name_tamil','$relation_age','$occupation')";
+          DB::insert( $sql );
+          
+          
+        }
+      }
 
     $servicepayment = $request->service_amount;
     if(Auth::user()->user_type_id == 3){
@@ -723,31 +758,26 @@ public function submitapply_tnegaservices2(Request $request){
         'can_details'     => $request->can_details,
         'personalized'        => $request->personalized,
         'relationship_1'        => $request->relationship_1,
-        'relationship_2'        => $request->relationship_2,
-        'relationship_3'        => $request->relationship_3,
+        'mother_name_tamil'        => $request->mother_name_tamil,
+        'mother_name_english'        => $request->mother_name_english,
         'dob'        => $request->dob,
         'religion'        => $request->religion,
         'education'        => $request->education,
         'work'        => $request->work,
         'door_no'        => $request->door_no,
         'personalized_name_tamil'        => $request->personalized_name_tamil,
-        'relationship_name_tamil_1'        => $request->relationship_name_tamil_1,
-        'relationship_name_tamil_2'        => $request->relationship_name_tamil_2,
-        'relationship_name_tamil_3'        => $request->relationship_name_tamil_3,
         'community'        => $request->community,
         'smartcard_number'        => $request->smartcard_number,
         'street_name_tamil'        => $request->street_name_tamil,
-        'postal_name'        => $request->postal_name,
         'personalized_name_english'        => $request->personalized_name_english,
         'relationship_name_english_1'        => $request->relationship_name_english_1,
-        'relationship_name_english_2'        => $request->relationship_name_english_2,
-        'relationship_name_english_3'        => $request->relationship_name_english_3,
         'maritial_status'        => $request->maritial_status,
         'caste'        => $request->caste,
         'street_name'        => $request->street_name,
         'pin_code'        => $request->pin_code,
-        'village_administrative_area'        => $request->village_administrative_area,
         'can_number'      => $request->can_number,
+        'postal_area_tamil'        => $request->postal_area_tamil,
+        'postal_area_english'        => $request->postal_area_english,
         'status'          => 'Pending',
         'applied_date'    => date("Y-m-d"),
         'created_at'      => date("Y-m-d"),
@@ -819,14 +849,14 @@ public function submitapply_tnegaservices2(Request $request){
         DB::table('tnega_services')->where('id', $insertid)->update([
             'aggregation'         => $aggregation,
         ]);
-        $ec_certificate = "";
-        if ($request->ec_certificate != null) {
-            $ec_certificate = uniqid().'.'.$request->file('ec_certificate')->extension();
-            $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . 'ec_certificate' . DIRECTORY_SEPARATOR);
-            move_uploaded_file($_FILES['ec_certificate']['tmp_name'], $filepath . $ec_certificate);
+        $strap = "";
+        if ($request->strap != null) {
+            $strap = uniqid().'.'.$request->file('strap')->extension();
+            $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . 'strap' . DIRECTORY_SEPARATOR);
+            move_uploaded_file($_FILES['strap']['tmp_name'], $filepath . $strap);
         }
         DB::table('tnega_services')->where('id', $insertid)->update([
-            'ec_certificate'         => $ec_certificate,
+            'strap'         => $strap,
         ]);
         $villankam = "";
         if ($request->villankam != null) {
@@ -864,7 +894,53 @@ public function submitapply_tnegaservices2(Request $request){
         DB::table('tnega_services')->where('id', $insertid)->update([
             'other_certificate'         => $other_certificate,
         ]);
+
+         DB::table('tnega_services')->where('id', $insertid)->update([
+            'any_proof'         => $request->any_proof,
+            'area'         => $request->area,
+        ]);
+
+
+        if($request->has('doc_name')){
+        foreach ( $request->doc_name as $key => $r ) {
+
+          $sql = "insert into document (service_id,doc_name) values ($insertid,'$r')";
+          DB::insert( $sql );
+
+          $relation_id = DB::getPdo()->lastInsertId();
+          $file1 = "";
+          if (isset($request->doc[$key])) {
+            if ($request->doc[$key] != null) {
+                $file1 = uniqid().'.'.$request->file('doc')[$key]->extension();
+          //dd($request->doc[$key]);
+                $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . 'doc' . DIRECTORY_SEPARATOR);
+                move_uploaded_file($_FILES['doc']['tmp_name'][$key], $filepath . $file1);
+                DB::table( 'document' )->where( 'id', $relation_id )->update( [
+                  'doc'       => $file1,
+              ] );
+            }
+        }
+
+
     }
+} 
+if($request->has('proof')){
+    foreach ( $request->proof as $key => $proof ) {
+      $district = $request->district[ $key ];
+      $taluk = $request->taluk[ $key ];
+      $village = $request->village[ $key ];
+      $patta_no = $request->patta_no[ $key ];
+      $field_no = $request->field_no[ $key ];
+      $subdivision_no = $request->subdivision_no[ $key ];
+      $area = $request->area1[ $key ];
+
+      $sql = "insert into agri_details (service_id,district,taluk,village,patta_no,field_no,subdivision_no,area,pattatype) values ($insertid,'$district','$taluk','$village','$patta_no','$field_no','$subdivision_no','$area','$proof')";
+      DB::insert( $sql );
+      
+      
+  }
+    }
+}
     elseif ($serviceid == 24) {
         $bank_pass_book = "";
         if ($request->bank_pass_book != null) {
@@ -1050,11 +1126,11 @@ public function submitapply_tnegaservices3(Request $request){
         'distributor_id'  =>   $distributor_id,
         'service_id'      => $request ->serviceid,
         'amount'          => $request->amount,
-        'can_details'        => $request->can_details,
+        'can_details'     => $request->can_details,
         'personalized'        => $request->personalized,
         'relationship_1'        => $request->relationship_1,
-        'relationship_2'        => $request->relationship_2,
-        'relationship_3'        => $request->relationship_3,
+        'mother_name_tamil'        => $request->mother_name_tamil,
+        'mother_name_english'        => $request->mother_name_english,
         'dob'        => $request->dob,
         'religion'        => $request->religion,
         'education'        => $request->education,
@@ -1062,22 +1138,18 @@ public function submitapply_tnegaservices3(Request $request){
         'door_no'        => $request->door_no,
         'personalized_name_tamil'        => $request->personalized_name_tamil,
         'relationship_name_tamil_1'        => $request->relationship_name_tamil_1,
-        'relationship_name_tamil_2'        => $request->relationship_name_tamil_2,
-        'relationship_name_tamil_3'        => $request->relationship_name_tamil_3,
         'community'        => $request->community,
         'smartcard_number'        => $request->smartcard_number,
         'street_name_tamil'        => $request->street_name_tamil,
-        'postal_name'        => $request->postal_name,
         'personalized_name_english'        => $request->personalized_name_english,
         'relationship_name_english_1'        => $request->relationship_name_english_1,
-        'relationship_name_english_2'        => $request->relationship_name_english_2,
-        'relationship_name_english_3'        => $request->relationship_name_english_3,
         'maritial_status'        => $request->maritial_status,
         'caste'        => $request->caste,
         'street_name'        => $request->street_name,
         'pin_code'        => $request->pin_code,
-        'village_administrative_area'        => $request->village_administrative_area,
         'can_number'      => $request->can_number,
+        'postal_area_tamil'        => $request->postal_area_tamil,
+        'postal_area_english'        => $request->postal_area_english,
         'status'          => 'Pending',
         'applied_date'    => date("Y-m-d"),
         'created_at'      => date("Y-m-d"),
@@ -1261,11 +1333,11 @@ public function submitapply_tnegaservices4(Request $request){
         'distributor_id'  =>   $distributor_id,
         'service_id'      => $request->serviceid,
         'amount'          => $request->amount,
-'can_details'        => $request->can_details,
+        'can_details'     => $request->can_details,
         'personalized'        => $request->personalized,
         'relationship_1'        => $request->relationship_1,
-        'relationship_2'        => $request->relationship_2,
-        'relationship_3'        => $request->relationship_3,
+        'mother_name_tamil'        => $request->mother_name_tamil,
+        'mother_name_english'        => $request->mother_name_english,
         'dob'        => $request->dob,
         'religion'        => $request->religion,
         'education'        => $request->education,
@@ -1273,22 +1345,18 @@ public function submitapply_tnegaservices4(Request $request){
         'door_no'        => $request->door_no,
         'personalized_name_tamil'        => $request->personalized_name_tamil,
         'relationship_name_tamil_1'        => $request->relationship_name_tamil_1,
-        'relationship_name_tamil_2'        => $request->relationship_name_tamil_2,
-        'relationship_name_tamil_3'        => $request->relationship_name_tamil_3,
         'community'        => $request->community,
         'smartcard_number'        => $request->smartcard_number,
         'street_name_tamil'        => $request->street_name_tamil,
-        'postal_name'        => $request->postal_name,
         'personalized_name_english'        => $request->personalized_name_english,
         'relationship_name_english_1'        => $request->relationship_name_english_1,
-        'relationship_name_english_2'        => $request->relationship_name_english_2,
-        'relationship_name_english_3'        => $request->relationship_name_english_3,
         'maritial_status'        => $request->maritial_status,
         'caste'        => $request->caste,
         'street_name'        => $request->street_name,
         'pin_code'        => $request->pin_code,
-        'village_administrative_area'        => $request->village_administrative_area,
         'can_number'      => $request->can_number,
+        'postal_area_tamil'        => $request->postal_area_tamil,
+        'postal_area_english'        => $request->postal_area_english,
         'status'          => 'Pending',
         'applied_date'    => date("Y-m-d"),
         'created_at'      => date("Y-m-d"),
@@ -1415,11 +1483,10 @@ public function submitapply_tnegaservices5(Request $request){
         'service_id'    => $request->serviceid,
         'amount'        => $request->amount,
         'can_details'   => $request->can_details,
-        'can_details'        => $request->can_details,
         'personalized'        => $request->personalized,
         'relationship_1'        => $request->relationship_1,
-        'relationship_2'        => $request->relationship_2,
-        'relationship_3'        => $request->relationship_3,
+        'mother_name_tamil'        => $request->mother_name_tamil,
+        'mother_name_english'        => $request->mother_name_english,
         'dob'        => $request->dob,
         'religion'        => $request->religion,
         'education'        => $request->education,
@@ -1427,16 +1494,11 @@ public function submitapply_tnegaservices5(Request $request){
         'door_no'        => $request->door_no,
         'personalized_name_tamil'        => $request->personalized_name_tamil,
         'relationship_name_tamil_1'        => $request->relationship_name_tamil_1,
-        'relationship_name_tamil_2'        => $request->relationship_name_tamil_2,
-        'relationship_name_tamil_3'        => $request->relationship_name_tamil_3,
         'community'        => $request->community,
         'smartcard_number'        => $request->smartcard_number,
         'street_name_tamil'        => $request->street_name_tamil,
-        'postal_name'        => $request->postal_name,
         'personalized_name_english'        => $request->personalized_name_english,
         'relationship_name_english_1'        => $request->relationship_name_english_1,
-        'relationship_name_english_2'        => $request->relationship_name_english_2,
-        'relationship_name_english_3'        => $request->relationship_name_english_3,
         'maritial_status'        => $request->maritial_status,
         'caste'        => $request->caste,
         'street_name'        => $request->street_name,
@@ -1444,6 +1506,8 @@ public function submitapply_tnegaservices5(Request $request){
         'village_administrative_area'        => $request->village_administrative_area,
         'can_number'    => $request->can_number,
         'handicapped_proof'    => $request->handicapped_proof,
+        'postal_area_tamil'        => $request->postal_area_tamil,
+        'postal_area_english'        => $request->postal_area_english,
         'status'        => 'Pending',
         'applied_date'  => date("Y-m-d"),
         'created_at'    => date("Y-m-d"),
@@ -1865,6 +1929,183 @@ public function submitapply_tnegaservices5(Request $request){
     DB::update( DB::raw( $sql ) );
 
     return redirect("appliedservice/Pending")->With("success","Application submitted Succesfully");
+
+}
+
+public function submitapply_tnegaservices6(Request $request){
+    //dd($request->all());
+    $user_id = 0;
+    $retailer_id = 0;
+    $distributor_id = 0;
+    if(Auth::user()->user_type_id == 3){
+        $user_id = $request ->user_id;
+        $distributor_id = Auth::user()->id;
+    }elseif(Auth::user()->user_type_id == 4){
+        $user_id = $request ->user_id;
+        $retailer_id = Auth::user()->id;
+    } elseif(Auth::user()->user_type_id == 5){
+        $user_id = Auth::user()->id;
+    }
+    $serviceid = $request ->serviceid;
+    DB::table( 'tnega_services' )->insert( [
+        'user_id'  =>   $user_id,
+        'retailer_id'  =>   $retailer_id,
+        'distributor_id'  =>   $distributor_id,
+        'service_id'    => $request ->serviceid,
+        'amount'        => $request->amount,
+        'can_details'        => $request->can_details,
+        'personalized'        => $request->personalized,
+        'relationship_1'        => $request->relationship_1,
+        'dob'        => $request->dob,
+        'religion'        => $request->religion,
+        'education'        => $request->education,
+        'work'        => $request->work,
+        'door_no'        => $request->door_no,
+        'personalized_name_tamil'        => $request->personalized_name_tamil,
+        'relationship_name_tamil_1'        => $request->relationship_name_tamil_1,
+        'community'        => $request->community,
+        'smartcard_number'        => $request->smartcard_number,
+        'street_name_tamil'        => $request->street_name_tamil,
+        'personalized_name_english'        => $request->personalized_name_english,
+        'relationship_name_english_1'        => $request->relationship_name_english_1,
+        'maritial_status'        => $request->maritial_status,
+        'caste'                  => $request->caste,
+        'street_name'        => $request->street_name,
+        'pin_code'        => $request->pin_code,
+        'postal_area_tamil'        => $request->postal_area_tamil,
+        'postal_area_english'        => $request->postal_area_english,
+        'can_number'        => $request->can_number,
+        'mother_name_tamil'        => $request->mother_name_tamil,
+        'mother_name_english'        => $request->mother_name_english,
+        'course_complete'        => $request->course_complete,
+        'year_of_passing'        => $request->year_of_passing,
+        'current_course'         => $request->current_course,
+        'current_academy_yr'        => $request->current_academy_yr,
+        'institute_name_tamil'        => $request->institute_name_tamil,
+        'institute_name_english'        => $request->institute_name_english,
+        'institute_address_tamil'        => $request->institute_address_tamil,
+        'institute_address_english'        => $request->institute_address_english,
+        'living_status_1'        => $request->living_status_1,
+        'living_status_2'        => $request->living_status_2,
+        'status'        => 'Pending',
+        'applied_date'  => date("Y-m-d"),
+        'created_at'    => date("Y-m-d"),
+    ] );
+    $insertid = DB::getPdo()->lastInsertId();
+
+    $signature1 = "";
+    if ($request->signature1 != null) {
+        $signature1 = uniqid().'.'.$request->file('signature1')->extension();
+        $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . 'signature1' . DIRECTORY_SEPARATOR);
+        move_uploaded_file($_FILES['signature1']['tmp_name'], $filepath . $signature1);
+    }
+    DB::table('tnega_services')->where('id', $insertid)->update([
+        'signature1'         => $signature1,
+    ]);
+    $signature2 = "";
+    if ($request->signature2 != null) {
+        $signature2 = uniqid().'.'.$request->file('signature2')->extension();
+        $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . 'signature2' . DIRECTORY_SEPARATOR);
+        move_uploaded_file($_FILES['signature2']['tmp_name'], $filepath . $signature2);
+    }
+    DB::table('tnega_services')->where('id', $insertid)->update([
+        'signature2'         => $signature2,
+    ]);
+    
+    if($request->has('relation')){
+        foreach ( $request->relation as $key => $r ) {
+          $relation_name_tamil = $request->name_tamil[ $key ];
+          $relation_name = $request->name_english[ $key ];
+          $living_status = $request->living_status[ $key ];
+          $age = $request->age[ $key ];
+          $education = $request->education_type[ $key ];
+
+          $sql = "insert into family_member (service_id,relation,relation_name,relation_name_tamil,relation_status,education,relation_age) values ($insertid,'$r','$relation_name','$relation_name_tamil','$living_status','$education','$age')";
+          DB::insert( $sql );
+
+          $relation_id = DB::getPdo()->lastInsertId();
+          $file1 = "";
+          if (isset($request->doc[$key])) {
+            if ($request->doc[$key] != null) {
+                $file1 = uniqid().'.'.$request->file('doc')[$key]->extension();
+          //dd($request->doc[$key]);
+                $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . 'doc' . DIRECTORY_SEPARATOR);
+                move_uploaded_file($_FILES['doc']['tmp_name'][$key], $filepath . $file1);
+                DB::table( 'family_member' )->where( 'id', $relation_id )->update( [
+                  'doc'       => $file1,
+              ] );
+            }
+        }
+
+
+    }
+} 
+
+if($request->has('relationship_add')){
+    foreach ( $request->relationship_add as $key => $r ) {
+        $relation_name_tamil = $request->name_tamil_add[ $key ];
+        $relation_name = $request->name_english_add[ $key ];
+        $living_status = $request->living_status_add[ $key ];
+        $age = $request->age_add[ $key ];
+        $education = $request->education_type_add[ $key ];
+
+        $sql = "insert into family_member (user_id,service_id,relation,relation_name,relation_name_tamil,relation_status,education,relation_age) values ($insertid,$insertid,'$r','$relation_name','$relation_name_tamil','$living_status','$education','$age')";
+        DB::insert( $sql );
+
+        $relation_id = DB::getPdo()->lastInsertId();
+         $file1 = "";
+        if (isset($request->doc1[$key])) {
+            if ($request->doc1[$key] != null) {
+                $file1 = uniqid().'.'.$request->file('doc1')[$key]->extension();
+          //dd($request->doc[$key]);
+                $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . 'doc' . DIRECTORY_SEPARATOR);
+                move_uploaded_file($_FILES['doc1']['tmp_name'][$key], $filepath . $file1);
+                DB::table( 'family_member' )->where( 'id', $relation_id )->update( [
+                  'doc'       => $file1,
+              ] );
+            }
+        }
+
+
+    }
+} 
+
+$servicepayment = $request->service_amount;
+  if(Auth::user()->user_type_id == 3){
+    $user_id = $distributor_id;
+}elseif(Auth::user()->user_type_id == 4){
+    $user_id = $retailer_id;
+}elseif(Auth::user()->user_type_id == 5){
+    $user_id = $user_id;
+}
+$getservicename = DB::table( 'services' )->select('service_name')->where('id',$serviceid)->first();
+$servicename = "";
+if($getservicename){
+    $servicename = $getservicename->service_name;
+}
+    $date = date( 'Y-m-d' );
+    $time = date( 'H:i:s' );
+    $service_status = 'Out Payment';
+    $ad_info = 'Service Payment'. ' '. $servicename;
+    $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+$balance = 0;
+if($getwallet){
+    $balance = $getwallet->wallet;
+}
+$newbalance = $balance + $servicepayment;
+$newbalance1 = Auth::user()->wallet - $servicepayment;
+
+$sql = "insert into payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('$user_id','$user_id','2','$servicepayment','$ad_info', '$service_status','$time','$date','$user_id','$newbalance1')";
+DB::insert( DB::raw( $sql ) );
+$sql = "update users set wallet = wallet + $servicepayment where id = 2";
+DB::update( DB::raw( $sql ) );
+$service_status = 'IN Payment';
+$sql = "insert into payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('$user_id','2','$user_id','$servicepayment','$ad_info', '$service_status','$time','$date','$user_id','$newbalance')";
+DB::insert( DB::raw( $sql ) );
+$sql = "update users set wallet = wallet - $servicepayment where id = $user_id";
+DB::update( DB::raw( $sql ) );
+
+return redirect("appliedservice/Pending")->With("success","Application submitted Succesfully");
 
 }
 
@@ -4014,16 +4255,18 @@ public function submitapply_canedit(Request $request){
         'education'                  => $request->education,
         'work'                       => $request->work,
         'door_no'                    => $request->door_no,
-        'village_administrative_area'=> $request->village_administrative_area,
         'community'                  => $request->community,
         'caste'                      => $request->caste,
         'maritial_status'            => $request->maritial_status,
         'aadhaar_number'             => $request->aadhaar_number,
         'smartcard_number'           => $request->smartcard_number,
         'street_name_tamil'          => $request->street_name_tamil,
-        'postal_name'                => $request->postal_name,
         'street_name'                => $request->street_name,
         'pin_code'                   => $request->pin_code,
+        'mother_name_tamil'          => $request->mother_name_tamil,
+        'mother_name_english'        => $request->mother_name_english,
+        'postal_area_tamil'          => $request->postal_area_tamil,
+        'postal_area_english'        => $request->postal_area_english,
         'status'                     => 'Pending',
         'applied_date'               => date("Y-m-d"),
         'created_at'                 => date("Y-m-d"),

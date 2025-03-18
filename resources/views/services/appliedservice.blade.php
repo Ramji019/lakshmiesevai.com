@@ -26,6 +26,9 @@
                                     <th width="5%">Sl No</th>
                                     <th>Service Name</th>
                                     @if(Auth::user()->user_type_id == 1 || Auth::user()->user_type_id == 2)
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                    <th>Phone</th>
                                     @endif
                                     <th>Status</th>
                                     <th>Applied Date</th>
@@ -33,6 +36,7 @@
                                     <th>Application No</th>
                                     <th>Acknowledgement</th>
                                     @elseif($status == "Approved")
+                                    <th>Application</th>
                                     <th>Certificate</th>
                                     @endif
                                     <th>Action</th>
@@ -43,19 +47,34 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $ser->service_name }}</td>
-                                    @if(Auth::user()->user_type_id == 1)
+                                    @if(Auth::user()->user_type_id == 1 || Auth::user()->user_type_id == 2)
+                                    <td>{{ $ser->context }}({{ $ser->applyuserid }})</td>
+                                    <td>{{ $ser->applyname }}</td>
+                                    <td>{{ $ser->applymobile }}</td>
                                     @endif
                                     <td>{{ $ser->status }}</td>
                                     <td>{{ date('d-m-Y', strtotime($ser->applied_date)); }}</td>
-                                     @if($status == "Processing")
+                                    @if($status == "Processing")
                                     <td>{{ $ser->application_no }}</td>
-                                    <td><a download href="{{ URL::to('/') }}/upload/services/acknowledgement/{{ $ser->acknowledgement }}" class="btn btn-success me-2 btn-sm">Download</a></td>
+                                    <td>
+                                    @if($ser->selects == "File")
+                                    <a download href="{{ URL::to('/') }}/upload/services/acknowledgement/{{ $ser->acknowledgement }}" class="btn btn-success me-2 btn-sm">Download</a>
+                                    @endif
+                                    </td>
                                     @elseif($status == "Approved")
-                                    <td><a download href="{{ URL::to('/') }}/upload/services/certificate/{{ $ser->certificate }}" class="btn btn-success me-2 btn-sm">Download</a></td>
+                                    <td>{{ $ser->application }}</td>
+                                    <td>
+                                     @if($ser->lects == "File")
+                                    <a download href="{{ URL::to('/') }}/upload/services/certificate/{{ $ser->certificate }}" class="btn btn-success me-2 btn-sm">Download</a>
+                                    @endif
+                                    </td>
                                     @endif
                                     @php 
                                     $apply_user_id = 0;
-                                    if($ser->retailer_id == 0){
+                                    if ($ser->distributor_id == 0 && $ser->retailer_id == 0) {
+                                        $apply_user_id = $ser->user_id;
+                                    }
+                                    elseif($ser->retailer_id == 0){
                                         $apply_user_id = $ser->distributor_id;
                                     }elseif($ser->distributor_id == 0){
                                         $apply_user_id = $ser->retailer_id;

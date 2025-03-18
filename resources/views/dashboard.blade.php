@@ -83,6 +83,27 @@
                         </div>
 
                         <div class="col-sm-6 col-lg-3 col-xxl-3">
+                            <div class="card bg-secondary">
+                                <div class="card-body" data-intro="Revenue">
+                                    <div class="single-widget d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <div class="widget-icon">
+                                                <a href="{{ url('/appliedservice') }}/Rejected"><i class="bx bx-wallet"></i></a>
+                                            </div>
+                                            <div class="widget-desc">
+                                                <h5>Rejected</h5>
+                                            </div>
+                                        </div>
+                                        <div class="progress-report" data-title="progress"
+                                            data-intro="And this is the last step!">
+                                            <h4>{{ $rerej }}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-3 col-xxl-3">
                             <div class="card bg-success">
                                 <div class="card-body" data-intro="Growth">
                                     <div class="single-widget d-flex align-items-center justify-content-between">

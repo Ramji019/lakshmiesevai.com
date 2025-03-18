@@ -96,50 +96,50 @@
                                             <input type="hidden" name="retailerid" id="retailer_id" />
                                             <div class="mb-3">
                                                 <label for="editname" class="form-label">Name</label>
-                                                <input name="name" type="text" maxlength="30" class="form-control"
+                                                <input required name="name" type="text" maxlength="30" class="form-control"
                                                     id="editname" placeholder="Name">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="editphone" class="form-label">Phone</label>
-                                                <input type="text" name="phone" class="form-control number"
-                                                    maxlength="10" id="editphone" placeholder="Phone">
+                                                <label for="editemail" class="form-label">Email</label>
+                                                <input required type="text" name="email" maxlength="50" class="form-control"
+                                                    id="editemail" placeholder="Email">
                                             </div>
-
                                             <div class="mb-3">
                                                 <label for="editdob" class="form-label">DOB</label>
-                                                <input name="date_of_birth" type="date" maxlength="30"
+                                                <input required name="date_of_birth" type="date" maxlength="30"
                                                     class="form-control" id="editdob" placeholder="Date Of Birth">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Profile</label>
-                                                <input type="file" maxlength="30" name="profile"
+                                                <input required type="file" maxlength="30" name="profile"
                                                     class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
+                                                <label for="editphone" class="form-label">Phone</label>
+                                                <input required type="text" name="phone" class="form-control number"
+                                                    maxlength="10" id="editphone" placeholder="Phone">
+                                            </div>
+                                            <div class="mb-3">
                                                 <label for="editadhar" class="form-label">Aadhaar No</label>
-                                                <input type="text" name="aadhaar_no" maxlength="12"
+                                                <input required type="text" name="aadhaar_no" maxlength="12"
                                                     class="form-control number" id="editadhar" placeholder="Aadhaar No">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="editgender" class="form-label">Gender</label>
-                                                <select type="text" class="form-control" maxlength="10"
+                                                <select required type="text" class="form-control" maxlength="10"
                                                     id="editgender" placeholder="Phone" name="gender">
                                                     <option>Select</option>
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>
                                                 </select>
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="editemail" class="form-label">Email</label>
-                                                <input type="text" name="email" maxlength="50" class="form-control"
-                                                    id="editemail" placeholder="Email">
-                                            </div>
+                                            
                                             <div class="col-md-12">
                                                 <div class="mb-3">
                                                     <label for="editaddress" class="form-label">Address</label>
-                                                    <textarea type="text" rows="2" name="address" class="form-control" id="editaddress"
+                                                    <textarea required type="text" rows="2" name="address" class="form-control" id="editaddress"
                                                         placeholder="Address"></textarea>
                                                 </div>
                                             </div>
@@ -213,7 +213,7 @@
                                             <input type="hidden" name="statusid" id="status_id" />
                                             <div class="mb-3">
                                                 <label for="editstatusupdate" class="form-label">Status</label>
-                                                <select name="status" type="text" maxlength="8" class="form-control" id="editstatusupdate" >
+                                                <select required name="status" type="text" maxlength="8" class="form-control" id="editstatusupdate" >
                                                     <option value="">Select</option>
                                                     <option value="Active">Active</option>
                                                     <option value="Inactive">Inactive</option>
@@ -252,7 +252,7 @@
                                             <input type="hidden" name="type_id" id="type_id" />
                                             <div class="mb-3">
                                                 <label for="editusertype" class="form-label">Status</label>
-                                                <select name="user_type_id" type="text" maxlength="8" class="form-control" id="editusertype" >
+                                                <select required name="user_type_id" type="text" maxlength="8" class="form-control" id="editusertype" >
                                                     <option value="">Select</option>
                                                     <option value="3">Distributor</option>
                                                     <option value="5">Customer</option>

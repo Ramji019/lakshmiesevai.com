@@ -30,6 +30,7 @@
                                             id="example-text-input" placeholder="Applicant Name">
                                     </div>
                                 </div>
+
                                 <div class="mb-3 row">
                                     <label class="col-sm-3 form-label">Gender</label>
                                     <div class="col-sm-9">
@@ -38,14 +39,6 @@
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
                                         </select>
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="aadhaar_no" class="col-sm-3 form-label">Aadhaar No</label>
-                                    <div class="col-sm-9">
-                                        <input required onkeyup="duplicateaadhar(0)" class="form-control number" maxlength="12"
-                                            type="text" name="aadhaar_no" id="aadhaar_no" placeholder="Aadhaar No">
-                                        <span id="dupaadhar" style="color:red"></span>
                                     </div>
                                 </div>
 
@@ -60,14 +53,32 @@
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="mb-3 row">
                                     <label for="example-text-input" class="col-sm-3 form-label">VAO</label>
                                     <div class="col-sm-9">
-                                        <input required class="form-control" name="panchayath_name"  maxlength="50" type="text"
+                                        <input required class="form-control" name="panchayath_name" id="panchayath_name" maxlength="50" type="text"
                                             id="example-text-input" placeholder="VAO">
                                     </div>
                                 </div>
 
+                                <div class="mb-3 row">
+                                    <label for="aadhaar_no" class="col-sm-3 form-label">Aadhaar No</label>
+                                    <div class="col-sm-9">
+                                        <input required onkeyup="duplicateaadhar(0)" class="form-control number" maxlength="12"
+                                            type="text" name="aadhaar_no" id="aadhaar_no" placeholder="Aadhaar No">
+                                        <span id="dupaadhar" style="color:red"></span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label for="example-text-input-lg" class="col-sm-3 form-label">Smart Card No</label>
+                                    <div class="col-sm-9">
+                                        <input required type="text"
+                                            class="form-control" name="smartcard_no" maxlength="15" placeholder="SmartCard No"/>
+                                    </div>
+                                </div>
+                                
                                 <div class="mb-3 row">
                                     <label for="example-text-input-lg" class="col-sm-3 form-label">Signature</label>
                                     <div class="col-sm-9">
@@ -76,18 +87,11 @@
                                     </div>
                                 </div>
 
-                                 <div class="mb-3 row">
-                                    <label for="example-text-input-lg" class="col-sm-3 form-label">Smart Card</label>
-                                    <div class="col-sm-9">
-                                        <input required accept="image/jpeg, image/png" type="file"
-                                            class="form-control" name="smartcard" />
-                                    </div>
-                                </div>
-
+                                
 
                             </div>
 
-                            <div class="col-lg-6">
+                           <div class="col-lg-6">
 
                                  <div class="mb-3 row">
                                     <label for="example-url-input" class="col-sm-3 form-label">DOB</label>
@@ -96,6 +100,7 @@
                                             id="example-url-input">
                                     </div>
                                 </div>
+                               
                                 <div class="mb-3 row">
                                     <label for="example-month-input" class="col-sm-3 form-label">Phone</label>
                                     <div class="col-sm-9">
@@ -104,29 +109,12 @@
                                         <span id="dupphone" style="color:red"></span>
                                     </div>
                                 </div>
-                                <div class="mb-3 row">
-                                    <label for="example-text-input-lg" class="col-sm-3 form-label">Smart Card No</label>
-                                    <div class="col-sm-9">
-                                        <input required type="text"
-                                            class="form-control" name="smartcard_no" maxlength="15" placeholder="SmartCard No"/>
-                                    </div>
-                                </div>
-
+                                
                                 <div class="mb-3 row">
                                     <label for="example-text-input-lg" class="col-sm-3 form-label">Taluk</label>
                                     <div class="col-sm-9">
                                         <select required name="taluk_id" id="taluk" class="form-control">
                                         </select>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="mb-3 row">
-                                    <label for="example-text-input-lg" class="col-sm-3 form-label">Aadhar Card</label>
-                                    <div class="col-sm-9">
-                                        <input required accept="image/jpeg, image/png" type="file"
-                                            class="form-control" name="aadhaar_file" />
                                     </div>
                                 </div>
 
@@ -137,6 +125,22 @@
                                             id="example-text-input-lg">
                                     </div>
                                 </div>
+
+                                <div class="mb-3 row">
+                                    <label for="example-text-input-lg" class="col-sm-3 form-label">Aadhar Card</label>
+                                    <div class="col-sm-9">
+                                        <input required accept="image/jpeg, image/png" type="file"
+                                            class="form-control" name="aadhaar_file" />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label for="example-text-input-lg" class="col-sm-3 form-label">Smart Card</label>
+                                    <div class="col-sm-9">
+                                        <input required accept="image/jpeg, image/png" type="file"
+                                            class="form-control" name="smartcard" />
+                                    </div>
+                                </div>
                                 <div class="mb-3 row">
                                     <label for="example-url-input" class="col-sm-3 form-label">Address</label>
                                     <div class="col-sm-9">
@@ -144,10 +148,8 @@
                                             placeholder="Address"></textarea>
                                     </div>
                                 </div>
-
-
                             </div>
-                             <h3 class="text-center">Family Details</h3>
+                             {{-- <h3 class="text-center">Family Details</h3>
                                 <table id="pricetable" class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -207,7 +209,7 @@
                                                 class='material-symbols-outlined'>Remove</i></a></td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table> --}}
                             <div class="text-center">
                                 <div class="col-12">
                                     <div class="mb-0">
@@ -224,7 +226,7 @@
     </div>
 @endsection
 @push('page_scripts')
-    <script>
+      <script>
         $("#pricetable").on('change', '.alive_or_dead', function() {
             if ($(this).val() == "Alive") {
                 $(this).closest('tr').find('.changename').text("Aadhaar Card");
@@ -278,5 +280,4 @@
                 );
         }
     </script>
-
 @endpush

@@ -1246,3 +1246,141 @@ alter table smartcard add selects varchar(20) DEFAULT NULL after application_no;
 alter table software add selects varchar(20) DEFAULT NULL after application_no;
 alter table tailor add selects varchar(20) DEFAULT NULL after application_no;
 alter table voterid add selects varchar(20) DEFAULT NULL after application_no;
+alter table tnega_services add selects varchar(20) DEFAULT NULL after application_no;
+
+//17-03-2025
+
+alter table can_edit drop column postal_name; 
+alter table can_edit drop village_administrative_area; 
+alter table can_edit add postal_area_tamil text DEFAULT NULL after vao_area;
+alter table can_edit add postal_area_english text DEFAULT NULL after postal_area_tamil;
+
+alter table tec_exam add lects varchar(20) DEFAULT NULL after application_no;
+alter table aadhaarcard add lects varchar(20) DEFAULT NULL after application_no;
+alter table birth_certificate add lects varchar(20) DEFAULT NULL after application_no;
+alter table bond add lects varchar(20) DEFAULT NULL after application_no;
+alter table can_edit add lects varchar(20) DEFAULT NULL after application_no;
+alter table covid add lects varchar(20) DEFAULT NULL after application_no;
+alter table dharsan add lects varchar(20) DEFAULT NULL after application_no;
+alter table fssai add lects varchar(20) DEFAULT NULL after application_no;
+alter table gst add lects varchar(20) DEFAULT NULL after application_no;
+alter table itr add lects varchar(20) DEFAULT NULL after application_no;
+alter table license add lects varchar(20) DEFAULT NULL after application_no;
+alter table msme add lects varchar(20) DEFAULT NULL after application_no;
+alter table nalavariyam add lects varchar(20) DEFAULT NULL after application_no;
+alter table pancard add lects varchar(20) DEFAULT NULL after application_no;
+alter table pmkissan add lects varchar(20) DEFAULT NULL after application_no;
+alter table smartcard add lects varchar(20) DEFAULT NULL after application_no;
+alter table software add lects varchar(20) DEFAULT NULL after application_no;
+alter table tailor add lects varchar(20) DEFAULT NULL after application_no;
+alter table voterid add lects varchar(20) DEFAULT NULL after application_no;
+alter table tnega_services add lects varchar(20) DEFAULT NULL after application_no;
+alter table medicalscheme add lects varchar(20) DEFAULT NULL after application_no;
+
+alter table tec_exam add application varchar(20) DEFAULT NULL after application_no;
+alter table aadhaarcard add application varchar(20) DEFAULT NULL after application_no;
+alter table birth_certificate add application varchar(20) DEFAULT NULL after application_no;
+alter table bond add application varchar(20) DEFAULT NULL after application_no;
+alter table can_edit add application varchar(20) DEFAULT NULL after application_no;
+alter table covid add application varchar(20) DEFAULT NULL after application_no;
+alter table dharsan add application varchar(20) DEFAULT NULL after application_no;
+alter table fssai add application varchar(20) DEFAULT NULL after application_no;
+alter table gst add application varchar(20) DEFAULT NULL after application_no;
+alter table itr add application varchar(20) DEFAULT NULL after application_no;
+alter table license add application varchar(20) DEFAULT NULL after application_no;
+alter table msme add application varchar(20) DEFAULT NULL after application_no;
+alter table  nalavariyam add application varchar(50) DEFAULT NULL after acknowledgement;
+alter table pancard add application varchar(20) DEFAULT NULL after application_no;
+alter table pmkissan add application varchar(20) DEFAULT NULL after application_no;
+alter table smartcard add application varchar(20) DEFAULT NULL after application_no;
+alter table software add application varchar(20) DEFAULT NULL after application_no;
+alter table tailor add application varchar(20) DEFAULT NULL after application_no;
+alter table voterid add application varchar(20) DEFAULT NULL after application_no;
+alter table tnega_services add application varchar(20) DEFAULT NULL after application_no;
+alter table medicalscheme add application varchar(20) DEFAULT NULL after application_no;
+
+
+alter table tnega_services add mother_name_tamil text DEFAULT NULL after relationship_name_tamil_1;
+alter table tnega_services add mother_name_english text DEFAULT NULL after mother_name_tamil;
+alter table family_member add relation_name_tamil text DEFAULT NULL after relation_name;
+alter table family_member add service_id int(11) DEFAULT 0 after user_id;
+
+alter table family_member add occupation text DEFAULT NULL after relation_name_tamil;
+alter table tnega_services add affidavit text DEFAULT NULL after relationship;
+alter table tnega_services add self_community_certificate text DEFAULT NULL after affidavit;
+alter table tnega_services drop column postal_name; 
+
+alter table tnega_services add postal_area_tamil text DEFAULT NULL after street_name;
+alter table tnega_services add postal_area_english text DEFAULT NULL after postal_area_tamil;
+
+alter table family_member add education varchar(100) DEFAULT NULL;
+
+alter table tnega_services modify application text;
+alter table tec_exam modify application text;
+alter table aadhaarcard modify application text;
+alter table birth_certificate modify application text;
+alter table bond modify application text;
+alter table can_edit modify application text;
+alter table covid modify application text;
+alter table dharsan modify application text;
+alter table fssai modify application text;
+alter table gst modify application text;
+alter table itr modify application text;
+alter table license modify application text;
+alter table msme modify application text;
+alter table nalavariyam modify application text;
+alter table pancard modify application text;
+alter table pmkissan modify application text;
+alter table smartcard modify application text;
+alter table software modify application text;
+alter table tailor modify application text;
+alter table voterid modify application text;
+alter table medicalscheme modify application text;
+
+alter table tnega_services add father_community text DEFAULT NULL after postal_area_tamil;
+alter table tnega_services add father_caste text DEFAULT NULL after father_community;
+alter table tnega_services add mother_community text DEFAULT NULL after father_caste;
+alter table tnega_services add mother_caste text DEFAULT NULL after mother_community;
+
+CREATE TABLE `document` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `service_id` int DEFAULT 0,
+  `doc_name` varchar(50) DEFAULT NULL,
+  `doc` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)  ENGINE=InnoDB;
+
+alter table family_member add doc varchar(20) DEFAULT NULL;
+alter table tnega_services add living_status_1 text DEFAULT NULL;
+alter table tnega_services add living_status_2 text DEFAULT NULL;
+alter table tnega_services add signature1 text DEFAULT NULL;
+alter table tnega_services add signature2 text DEFAULT NULL;
+
+alter table tnega_services add area text DEFAULT NULL;
+alter table tnega_services add application text DEFAULT NULL;
+alter table tnega_services add strap text DEFAULT NULL;
+
+CREATE TABLE `agri_details` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `service_id` int DEFAULT 0,
+  `district` varchar(100) DEFAULT NULL,
+  `taluk` varchar(100) DEFAULT NULL,
+  `village` varchar(100) DEFAULT NULL,
+  `patta_no` varchar(100) DEFAULT NULL,
+  `field_no` varchar(100) DEFAULT NULL,
+  `subdivision_no` varchar(100) DEFAULT NULL,
+  `area` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)  ENGINE=InnoDB;
+
+alter table agri_details add pattatype varchar(100) DEFAULT NULL;
+
+alter table tnega_services add course_complete text DEFAULT NULL after affidavit;
+alter table tnega_services add year_of_passing text DEFAULT NULL after course_complete;
+alter table tnega_services add current_course text DEFAULT NULL after year_of_passing;
+alter table tnega_services add current_academy_yr text DEFAULT NULL after current_course;
+alter table tnega_services add institute_name_tamil text DEFAULT NULL after current_academy_yr;
+alter table tnega_services add institute_name_english text DEFAULT NULL after institute_name_tamil;
+alter table tnega_services add institute_address_tamil text DEFAULT NULL after institute_name_english;
+alter table tnega_services add institute_address_english text DEFAULT NULL after institute_address_tamil;
+

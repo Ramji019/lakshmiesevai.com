@@ -18,15 +18,15 @@
                     @endif
                     <div class="card-body">
                         <h1 class="card-title">{{ $servicename }}</h1>
-                        <h1 class="card-title">Service Payment : <span class="text-danger">{{ $payment }}</span></h1>
-                        <div class="row">
+                        <h1 class="card-title">Service Payment : <span class="text-danger" id="canpayment">{{ $payment }}</span></h1>
+                        <h5><span class="text-danger" id="cantext"></span></h5>                           <div class="row">
                             <form class="row g-4" action="{{ url('submitapply_tnegaservices2') }}" enctype="multipart/form-data"
                                 method="post">
                                 @csrf
                                <div class="row">
                         <input type="hidden" name="serviceid" value="{{ $serviceid }}">
                         <input type="hidden" name="amount" value="{{ $amount }}">
-                        <input type="hidden" name="service_amount" value="{{ $payment }}">
+                        <input type="hidden" id="seramt" name="service_amount" value="{{ $payment }}">
                         <input type="hidden" name="user_id" value="{{ $customers->id }}">
                         <div class="row">
                             <div class="col-lg-12">
@@ -53,138 +53,141 @@
 
                                         <div class="row" id="dobhide" style="display: none;">
                                             <h4 class="text-center">Can Details</h4>
-                                        <div class="mb-3 col-md-4">
-                        <label style="color:#23e156" for="personalized" class="form-label">திரு/திருமதி/செல்வி</label>
-                        <select id="personalized" name="personalized" class="form-control">
-                            <option value="">Select</option>
-                            <option value="திரு">திரு.</option>
-                            <option value="திருமதி">திருமதி.</option>
-                            <option value="செல்வி">செல்வி.</option>
-                        </select>
-                        <label style="color:#23e156" for="relationship_1" class="form-label">உறவுமுறை</label>
-                        <select id="relationship_1" name="relationship_1" class="form-control">
-                            <option value="">Select</option>
-                            <option value="தந்தை">தந்தை.</option>
-                        </select>
-                        <label style="color:#23e156" for="relationship_2" class="form-label">உறவுமுறை</label>
-                        <select id="relationship_2" name="relationship_2" class="form-control">
-                            <option value="">Select</option>
-                            <option value="தாய்">தாய்.</option>
-                        </select>
-                        <label style="color:#23e156" for="relationship_3" class="form-label">உறவுமுறை</label>
-                        <select id="relationship_3" name="relationship_3" class="form-control">
-                            <option value="">Select</option>
-                            <option value="கணவர்">கணவர்.</option>
-                            <option value="மனைவி">மனைவி.</option>
-                            <option value="உறவினர்">உறவினர்.</option>
-                        </select>
-                         <label  style="color:#23e156" for="community" class="form-label">Community</label>
-                        <select name="community" id="community" class="form-control">
-                                <option value="">Select Community</option>
-                                <option value="BC">BC</option>
-                                <option value="OC">OC</option>
-                                <option value="OBC">OBC</option>
-                                <option value="MBC">MBC</option>
-                                <option value="SC">SC</option>
-                                <option value="ST">ST</option>
-                                <option value="BC(Muslim)">BC (Muslim)</option>
-                            </select>
+                                            <div class="mb-3 col-md-4">
+                                                <label style="color:#23e156" for="personalized"
+                                                    class="form-label">திரு/திருமதி/செல்வி</label>
+                                                <select id="personalized" name="personalized" class="form-control">
+                                                    <option value="">Select</option>
+                                                    <option value="திரு">திரு.</option>
+                                                    <option value="திருமதி">திருமதி.</option>
+                                                    <option value="செல்வன்">செல்வன்.</option>
+                                                    <option value="செல்வி">செல்வி.</option>
+                                                </select>
+                                                <label style="color:#23e156" for="relationship_1"
+                                                    class="form-label">உறவுமுறை</label>
+                                                <select id="relationship_1" name="relationship_1"
+                                                    class="form-control">
+                                                    <option value="">Select</option>
+                                                    <option value="தந்தை">தந்தை.</option>
+                                                    <option value="கணவர்">கணவர்.</option>
+                                                    <option value="உறவினர்">உறவினர்.</option>
 
-                         <label style="color:#23e156" for="maritial_status" class="form-label">Maritial Status</label>
-                            <select  id="maritial_status" name="maritial_status" class="form-control">
-                                    <option value="">Select Maritial Status</option>
-                                    <option value="Married">Married</option>
-                                    <option value="Single">Single</option>
-                                    <option value="Divorced">Divorced</option>
-                                    </select>
+                                                </select>
+                                                <label style="color:#23e156" for="mother_name_tamil"
+                                                    class="form-label">தாயின் பெயர் தமிழில்</label>
+                                                <input type="text" maxlength="100" class="form-control"
+                                                    name="mother_name_tamil" placeholder="தாயின் பெயர் தமிழில்" />
 
+                                                <label style="color:#23e156" for="community"
+                                                    class="form-label">Community</label>
+                                                <select name="community" id="community" class="form-control">
+                                                    <option value="">Select Community</option>
+                                                    <option value="BC">BC</option>
+                                                    <option value="OC">OC</option>
+                                                    <option value="OBC">OBC</option>
+                                                    <option value="MBC">MBC</option>
+                                                    <option value="SC">SC</option>
+                                                    <option value="ST">ST</option>
+                                                    <option value="BC(Muslim)">BC (Muslim)</option>
+                                                </select>
+                                                <label style="color:#23e156" for="door_no"
+                                                    class="form-label">Door No</label>
+                                                <input type="text" maxlength="20" class="form-control"
+                                                    name="door_no" placeholder="Door No" />
+                                                <label style="color:#23e156" for="pin_code"
+                                                    class="form-label">Pin Code</label>
+                                                <input type="text" maxlength="10" class="form-control"
+                                                    name="pin_code" placeholder="Pin Code" />
+                                            </div>
+                                            <div class="mb-3 col-md-4">
 
-                        <label style="color:#23e156" for="door_no" class="form-label">Door No</label>
-                        <input type="text" maxlength="20" class="form-control"
-                        name="door_no" placeholder="Door No"/>
-                         <label style="color:#23e156" for="pin_code" class="form-label">Pin Code</label>
-                            <input type="text" maxlength="10" class="form-control"
-                            name="pin_code" placeholder="Pin Code"/>
-                    </div>
-                    <div class="mb-3 col-md-4">
+                                                <label style="color:#e411dd" for="personalized_name_tamil"
+                                                    class="form-label">விண்ணப்பதாரர் பெயர் தமிழில்</label>
+                                                <input type="text" maxlength="20" class="form-control"
+                                                    name="personalized_name_tamil" placeholder="பெயர் தமிழில்" />
+                                                <label style="color:#e411dd" for="relationship_name_tamil_1"
+                                                    class="form-label">பெயர் தமிழில்</label>
+                                                <input type="text" maxlength="20" class="form-control"
+                                                    name="relationship_name_tamil_1"
+                                                    placeholder="பெயர் தமிழில்" />
+                                                <label style="color:#e411dd" for="mother_name_english"
+                                                    class="form-label">Mother Name (ENGLISH)</label>
+                                                <input type="text" maxlength="100" class="form-control"
+                                                    name="mother_name_english"
+                                                    placeholder="Mother Name (ENGLISH)" />
+                                                <label style="color:#e411dd" for="education"
+                                                    class="form-label">Education</label>
+                                                <select name="education" id="education" class="form-control">
+                                                    <option value="">Select Education</option>
+                                                    <option value="Students ">Students </option>
+                                                    <option value="No Education">No Education</option>
+                                                    <option value="Private Employee">Private Employee
+                                                    </option>
+                                                    <option value="Govt.Employee">Govt.Employee
+                                                    </option>
+                                                    <option value="Daily Wages">Daily Wages
+                                                    </option>
+                                                    <option value="Others">Others</option>
+                                                </select>
+                                                <label style="color:#e411dd" for="street_name_tamil"
+                                                    class="form-label">தெரு பெயர்</label>
+                                                <input type="text" maxlength="50" class="form-control"
+                                                    name="street_name_tamil" placeholder="தெரு பெயர்" />
+                                                <label style="color:#e411dd" for="postal_area_tamil"
+                                                    class="form-label">அஞ்சல் பெயர்</label>
+                                                <input type="text" maxlength="50" class="form-control"
+                                                    name="postal_area_tamil" placeholder="அஞ்சல் பெயர்" />
 
-                            <label style="color:#e411dd" for="personalized_name_tamil" class="form-label">விண்ணப்பதாரர் பெயர் தமிழில்</label>
-                            <input type="text" maxlength="20" class="form-control"
-                            name="personalized_name_tamil" placeholder="பெயர் தமிழில்"/>
-                            <label style="color:#e411dd" for="relationship_name_tamil_1" class="form-label">பெயர் தமிழில்</label>
-                            <input type="text" maxlength="20" class="form-control"
-                            name="relationship_name_tamil" placeholder="பெயர் தமிழில்"/>
-                            <label style="color:#e411dd" for="relationship_name_tamil_2" class="form-label">பெயர் தமிழில்</label>
-                            <input type="text" maxlength="20" class="form-control"
-                            name="relationship_name_tamil" placeholder="பெயர் தமிழில்"/>
-                            <label style="color:#e411dd" for="relationship_name_tamil_3" class="form-label">பெயர் தமிழில்</label>
-                            <input type="text" maxlength="20" class="form-control"
-                            name="relationship_name_tamil" placeholder="பெயர் தமிழில்"/>
-                            <label style="color:#e411dd" for="caste" class="form-label">Caste</label>
-                            <input type="text" maxlength="20" class="form-control"
-                            name="caste" placeholder="Caste"/>
-                        <label style="color:#e411dd" for="education" class="form-label">Education</label>
-                        <input type="text" maxlength="50" class="form-control"
-                        name="education" placeholder="Education"/>
+                                            </div>
+                                            <div class="mb-3 col-md-4">
 
-                        <label style="color:#e411dd" for="street_name_tamil" class="form-label">தெரு பெயர்</label>
-                        <input type="text" maxlength="50" class="form-control"
-                        name="street_name_tamil" placeholder="தெரு பெயர்"/>
-                        <label style="color:#e411dd" for="postal_name" class="form-label">அஞ்சல் பெயர்</label>
-                        <input type="text" maxlength="50" class="form-control"
-                        name="postal_name" placeholder="அஞ்சல் பெயர்"/>
-                        <!--<label style="color:#e411dd" for="panchayath_id" class="form-label">கிராம நிர்வாக பகுதி</label>
-                        <select name="panchayath_id" id="panchayath"  class="form-control">
-                        </select>-->
-                    </div>
-                        <div class="mb-3 col-md-4">
+                                                <label style="color:#23e156" for="personalized_name_english"
+                                                    class="form-label">Applicant Name</label>
+                                                <input type="text" maxlength="20" class="form-control"
+                                                    name="personalized_name_english"
+                                                    placeholder="Name In English" />
+                                                <label style="color:#23e156" for="relationship_name_english_1"
+                                                    class="form-label">Name In English</label>
+                                                <input type="text" maxlength="20" class="form-control"
+                                                    name="relationship_name_english_1"
+                                                    placeholder="Name In English" />
+                                                <label style="color:#23e156" for="maritial_status"
+                                                    class="form-label">Maritial Status</label>
+                                                <select id="maritial_status" name="maritial_status"
+                                                    class="form-control">
+                                                    <option value="">Select Maritial Status</option>
+                                                    <option value="Un Married">Un Married</option>
+                                                    <option value="Married">Married</option>
+                                                    <option value="Widower">Widower</option>
+                                                    <option value="Widow">Widow</option>
+                                                    <option value="Divorced">Divorced</option>
+                                                </select>
 
-                            <label style="color:#23e156" for="personalized_name_english" class="form-label">Applicant Name</label>
-                            <input type="text" maxlength="20" class="form-control"
-                            name="personalized_name_english" placeholder="Name In English"/>
-                            <label style="color:#23e156" for="relationship_name_english_1" class="form-label">Name In English</label>
-                            <input type="text" maxlength="20" class="form-control"
-                            name="relationship_name_english_1" placeholder="Name In English"/>
-                            <label style="color:#23e156" for="relationship_name_english_2" class="form-label">Name In English</label>
-                            <input type="text" maxlength="20" class="form-control"
-                            name="relationship_name_english_2" placeholder="Name In English"/>
-                            <label style="color:#23e156" for="relationship_name_english_3" class="form-label">Name In English</label>
-                            <input type="text" maxlength="20" class="form-control"
-                            name="relationship_name_english_3" placeholder="Name In English"/>
-                            <label style="color:#23e156" for="religion" class="form-label">Religion</label>
-                        <input type="text" maxlength="20" class="form-control"
-                        name="religion" placeholder="Religion"/>
-                           <label style="color:#23e156" for="work" class="form-label">Work</label>
-                        <input type="text" maxlength="50" class="form-control"
-                        name="work" placeholder="Work"/>
+                                                <label style="color:#23e156" for="religion"
+                                                    class="form-label">Religion</label>
+                                                <input type="text" maxlength="20" class="form-control"
+                                                    name="religion" placeholder="Religion" />
 
-                            <label style="color:#23e156" for="street_name" class="form-label">Street Name</label>
-                            <input type="text" maxlength="30" class="form-control"
-                            name="street_name" placeholder="Street Name"/>
+                                                <label style="color:#23e156" for="street_name"
+                                                    class="form-label">Street Name</label>
+                                                <input type="text" maxlength="30" class="form-control"
+                                                    name="street_name" placeholder="Street Name" />
 
-                            <label style="color:#23e156" for="village_administrative_area" class="form-label">Postal Area</label>
-                        <input type="text" maxlength="20" class="form-control"
-                        name="village_administrative_area" placeholder="Postal Area"/>
-                        </div>
-                     </div>
-                    </div>
-                </div>
-            </div>
-                        <h4 class="text-center"> Basic Details </h4>
+                                                <label style="color:#23e156" for="postal_area_english"
+                                                    class="form-label">Postal Area</label>
+                                                <input type="text" maxlength="50" class="form-control"
+                                                    name="postal_area_english" placeholder="Postal Area" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                       <h4 class="text-center"> Basic Details </h4>
 
-                          <div class="mb-3 col-md-6">
+                        <div class="mb-3 col-md-6">
                             <label for="name" class="form-label">Name</label>
                             <input value="{{ $customers->name }}" readonly  required type="text" class="form-control"
                             name="name" placeholder="Name"/>
-
-
-                            <label for="aadhaar_no" class="form-label">Aadhaar Number</label>
-                            <input value="{{ $customers->aadhaar_no }}" readonly required type="text" maxlength="12" class="form-control"
-                            name="aadhaar_no" placeholder="Aadhaar Number"/>
-
-                            <label for="mobile" class="form-label number">Mobile Number</label>
-                            <input value="{{ $customers->phone }}" readonly required type="text" maxlength="10" class="form-control"
-                            name="mobile" placeholder="Mobile Number"/>
 
                             <label for="dist_id" class="form-label">District</label>
                             <select disabled name="dist_id" id="dist_id" class="form-control">
@@ -193,16 +196,38 @@
                                 <option @if($d->id == $customers->dist_id) selected @endif value="{{ $d->id }}">{{ $d->district_name }}</option>
                                 @endforeach
                             </select>
-
-                            <label for="taluk_id" class="form-label">Taluk</label>
-                            <select disabled name="taluk_id" id="taluk"  class="form-control">
-                            </select>
+                            
+                            <label for="panchayath_id" class="form-label">VAO</label>
+                            <input class="form-control" type="text"
+                            value="{{ $customers->panchayath_name }}" readonly required name="panchayath_name" maxlength="50"
+                            placeholder="VAO">
+                                
+                            <label for="aadhaar_no" class="form-label">Aadhaar Number</label>
+                            <input value="{{ $customers->aadhaar_no }}" readonly required type="text" maxlength="12" class="form-control"
+                            name="aadhaar_no" placeholder="Aadhaar Number"/>
+                            <label for="signature" class="form-label">Signature</label>
+                             @if($customers->signature == "")
+                             <br><a  href="#" class="btn btn-primary me-2">No File Uploaded</a><br>
+                             @else
+                            <br><a target="_blank" href="/upload/users/signature/{{ $customers->signature }}" class="btn btn-primary me-2">View</a><br>
+                            @endif
+                           
                         </div>
 
                           <div class="mb-3 col-md-6">
-                            <label for="panchayath_id" class="form-label">VAO</label>
-                            <input value="{{ $customers->panchayath_name }}" readonly required type="text" class="form-control" name="panchayath_name" placeholder="VAO"/>
-
+                          <label for="mobile" class="form-label number">Mobile Number</label>
+                            <input value="{{ $customers->phone }}" readonly required type="text" maxlength="10" class="form-control"
+                            name="mobile" placeholder="Mobile Number"/>
+     
+                            <label for="taluk_id" class="form-label">Taluk</label>
+                            <select disabled name="taluk_id" id="taluk"  class="form-control">
+                            </select>
+                            <label for="photo" class="form-label">Photo</label>
+                             @if($customers->profile == "")
+                             <br><a  href="#" class="btn btn-primary me-2">No File Uploaded</a><br>
+                             @else
+                            <br><a target="_blank" href="/upload/users/profile_photo/{{ $customers->profile }}" class="btn btn-primary me-2">View</a><br>
+                            @endif
                             <label for="aadhaar_card" class="form-label">Aadhaar Card</label>
                             @if($customers->aadhaar_file == "")
                             <br><a  href="#" class="btn btn-primary me-2">No File Uploaded</a><br>
@@ -216,18 +241,8 @@
                              @else
                             <br><a target="_blank" href="/upload/users/smart_card/{{ $customers->smartcard }}" class="btn btn-primary me-2">View</a><br>
                             @endif
-                            <label for="signature" class="form-label">Signature</label>
-                             @if($customers->signature == "")
-                             <br><a  href="#" class="btn btn-primary me-2">No File Uploaded</a><br>
-                             @else
-                            <br><a target="_blank" href="/upload/users/signature/{{ $customers->signature }}" class="btn btn-primary me-2">View</a><br>
-                            @endif
-                            <label for="photo" class="form-label">Photo</label>
-                             @if($customers->profile == "")
-                             <br><a  href="#" class="btn btn-primary me-2">No File Uploaded</a><br>
-                             @else
-                            <br><a target="_blank" href="/upload/users/profile_photo/{{ $customers->profile }}" class="btn btn-primary me-2">View</a><br>
-                            @endif
+                           
+                           
 
                           </div>
                     </div>
@@ -259,7 +274,56 @@
                             <input required class="form-control" type="file"
                             name="anyothers_certificate" />
                             </div>
-                            @elseif($serviceid == 23)
+                     @elseif($serviceid == 23)
+
+                             <div class="row">
+                                <h3 class="text-center">சிறு குறு விவசாய சான்று தேவையான மொத்த பரப்பளவு</h3>
+                                    <table id="agri" class="table table-bordered">
+                                        <thead>
+                                             <tr>
+                                                <th>பட்டா வகை</th>
+                                                <th>மாவட்டம்</th>
+                                                <th>தாலுகா</th>
+                                                <th>வருவாய் கிராமம்</th>
+                                                <th>பட்டா எண்</th>
+                                                <th>புல எண்</th>
+                                                <th>உட்பிரிவு எண்</th>
+                                                <th width="10%">தேவையான பரப்பளவு(Area/Hectares)</th>
+                                                <th><a class="btn btn-sm btn-success" onclick="addnewrows()"><i
+                                                            class='material-symbols-outlined'>add</i></a></th>
+                                            </tr>
+                                           
+                                        </thead>
+                                        
+                                        <tbody>
+                                <tr>
+                                     <td><select required class="form-control" name="proof[]"  style="width: 100%;">
+                                <option value="">Select</option>
+                                <option value="Joint Strap">கூட்டு பட்டா</option>
+                                <option value="Strap">தனிபட்டா</option>
+                            </select></td>
+                            <td><input class="form-control" required type="text"
+                                name="district[]" maxlength="80"></td>
+                                <td><input class="form-control" required type="text"
+                                name="taluk[]" maxlength="80"></td>
+                                <td><input class="form-control" required type="text"
+                                name="village[]" maxlength="80"></td>
+                                <td><input class="form-control" required type="text"
+                                name="patta_no[]" maxlength="80"></td>
+                                <td><input class="form-control" required type="text"
+                                name="field_no[]" value="" maxlength="80"></td>
+                                <td><input class="form-control" required type="text"
+                                name="subdivision_no[]" maxlength="80"></td>
+                                <td><input class="form-control" required type="text"
+                                name="area1[]" maxlength="80"></td>
+                                                 
+                                               
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <h4 class="text-center"> Additional Details </h4>
                             <div class="mb-3 col-md-6">
                             <label class="form-label">சிட்டா</label>
                             <input required class="form-control" type="file"
@@ -270,30 +334,57 @@
                             <input required class="form-control" type="file"
                             name="aggregation" />
                             </div>
-                            <div class="mb-3 col-md-6">
-                            <label class="form-label">கூட்டுபட்டாவாக இருந்தால் EC சான்றிதழ்  அல்லது பத்திரம் வேண்டும்</label>
-                            <input required class="form-control" type="file"
-                            name="ec_certificate" />
-                            </div>
-                            <div class="mb-3 col-md-6">
-                            <label class="form-label">வில்லங்கம்</label>
-                            <input required class="form-control" type="file"
-                            name="villankam" />
-                            </div>
-                            <div class="mb-3 col-md-6">
-                            <label class="form-label">வீ.ஏ.ஓ சான்று</label>
-                            <input required class="form-control" type="file"
-                            name="vao_certificate" />
-                            </div>
-                            <div class="mb-3 col-md-6">
-                            <label class="form-label">சுய வாக்குமூலம்</label>
-                            <input required class="form-control" type="file"
-                            name="self_declaration_certificate" />
-                            </div>
-                            <div class="mb-3 col-md-6">
-                            <label class="form-label">மற்றவைகள் இருந்தால் அதன் நகல்</label>
-                            <input required class="form-control" type="file"
-                            name="other_certificate" />
+                     <!--        <div class="mb-3 col-md-6">
+                            {{-- <label class="mb-2 text-danger">சிறு குறு விவசாய சான்று தேவையான மொத்த பரப்பளவு</label> --}}
+                            <label>மொத்த பரப்பளவு(Area/Hectares)</label>
+                            <input class="form-control" required type="text"
+                            name="area" maxlength="80" placeholder="மொத்த பரப்பளவு(Area/Hectares)">
+                            </div> -->
+                             <div class="mb-3 col-md-6">
+                           <label>Select Any</label>
+                            <select required class="form-control" id="strap_details" name="any_proof"  style="width: 100%;">
+                                <option value="">Select</option>
+                                <option value="Joint Strap">கூட்டு பட்டா</option>
+                                <option value="Strap">தனிபட்டா</option>
+                            </select>
+                        </div>
+                       <!--  <div class="mb-3 col-md-6" style="display:none;" id="straphide">
+                            <label class="form-label">பத்திரம்</label>
+                            <input id="strap1" class="form-control" type="file"
+                            name="strap" />
+                            </div> -->
+                           
+                        <div class="row" id="dochide" style="display:none;">
+                            <h3 class="text-center">Document Details</h3>
+                                <table id="doc" class="table table-bordered">
+                                    <thead>
+                                         <tr>
+                                            <th>Name of the document</th>
+                                            <th>File</th>
+                                             <th><a class="btn btn-sm btn-success" onclick="addnewrow()"><i
+                                                        class='material-symbols-outlined'>add</i></a></th>
+                                        </tr>
+                                       
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <tr>
+                                            <td> <select id="docdetails"  name="doc_name[]" class="form-control">
+                                                    <option value="">Select</option>
+                                                    <option value="Deed">பத்திரம்</option>
+                                                    <option value="NOC">NOC</option>
+                                                    <option value="Ec/Villankam">Ec/Villankam</option>
+                                                    <option value="VAO Certificate">விஏஓ சான்றிதழ்</option>
+                                                </select></td>
+                                             
+                                            <td>
+                                                <input  class="form-control"
+                                                    type="file" id="docimg"  name="doc[]" accept="image/jpeg, image/png">
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             @elseif($serviceid == 24)
                             <div class="mb-3 col-md-6">
@@ -395,7 +486,7 @@
     </div>
 @endsection
 @push('page_scripts')
-    <script>
+<script>
     var dist_id = "{{ $customers->dist_id }}";
     var taluk_id = "{{ $customers->taluk_id }}";
     var wallet = "{{ Auth::user()->wallet }}";
@@ -452,26 +543,73 @@ function gettaluk(dist_id) {
         $('#incomemonthly').val((yearly / 12 ? yearly / 12 : 0).toFixed(2));
     });
     var customerid = "{{ $customers->id }}";
-    $('#can_details').change(function(){
-        if($('#can_details').val() == 'Yes') {
-            $('#cannumberhide').show("slow");
-            $('#cannumber').prop("required",true);
-            $('#dobhide').hide("slow");
-        }else if($('#can_details').val() == 'No'){
-            $('#dobhide').show("slow");
-            $('#cannumberhide').hide("slow");
-            $('#cannumber').prop("required",false);
-        }else if($('#can_details').val() == 'Find'){
-            $('#dobhide').hide("slow");
-            $('#cannumberhide').show("slow");
-            $('#cannumber').prop("required",false);
-            window.location.href = "{{ url('applyservices') }}/"+121;
-        } else {
-            $('#dobhide').hide("slow");
-            $('#cannumberhide').hide("slow");
-            $('#cannumber').prop("required",false);
+    $('#can_details').change(function() {
+            if ($('#can_details').val() == 'Yes') {
+                $('#cannumberhide').show("slow");
+                $('#cannumber').prop("required", true);
+                $('#dobhide').hide("slow");
+                $('#canpayment').html(parseFloat(amount));
+                $('#seramt').val(amount);
+                $('#cantext').html("");
+                $('#save').prop("disabled", false);
+                $('#nopayment').html("");
+            } else if ($('#can_details').val() == 'No') {
+                $('#dobhide').show("slow");
+                $('#cannumberhide').hide("slow");
+                $('#cannumber').prop("required", false);
+                $('#canpayment').html(parseFloat(amount) + 15);
+                $('#seramt').val(parseFloat(amount) + 15);
+                $('#cantext').html("Additional Amount of 15 will be added for can number...");
+                var canamt = parseFloat(amount) + 15;
+                if (parseFloat(canamt) > parseInt(wallet)) {
+                $('#save').prop("disabled", true);
+                $('#nopayment').html("No Fund in Wallet.Please Update Your wallet To Continue the Service").css({
+                    'color': 'red',
+                    'font-size': '150%',
+                    'font-weight': 'bold'
+                });
+            }
+            } else if ($('#can_details').val() == 'Find') {
+                $('#dobhide').hide("slow");
+                $('#cannumberhide').show("slow");
+                $('#cannumber').prop("required", false);
+                window.location.href = "{{ url('applyservice') }}/" + 121 + "/" + customerid;
+            } else {
+                $('#dobhide').hide("slow");
+                $('#cannumberhide').hide("slow");
+                $('#cannumber').prop("required", false);
+            }
+        });
+
+
+
+
+$('#strap_details').change(function(){
+        if($('#strap_details').val() == 'Joint Strap') {
+            $('#dochide').show("slow");
+            $('#docdetails').prop("required",true);
+            $('#docimg').prop("required",true);
+            $('#straphide').hide("slow");
+            $('#strap1').prop("required",false);
+
+        } else if($('#strap_details').val() == 'Strap'){
+            $('#straphide').show("slow");
+            $('#strap1').prop("required",true);
+            $('#dochide').hide("slow");
+             $('#docdetails').prop("required",false);
+            $('#docimg').prop("required",false);
+
+        }else{
+             $('#dochide').hide("slow");
+             $('#docdetails').prop("required",false);
+            $('#docimg').prop("required",false);
+            $('#straphide').hide("slow");
+            $('#strap1').prop("required",false);
         }
     });
+
+
+
 
     $('#age_proof').change(function(){
         if($('#age_proof').val() == 'Tc/Community Certificate') {
@@ -601,6 +739,26 @@ function gettaluk(dist_id) {
         }
     });
 
+    $("#doc").on('click', '.btnDelete', function() {
+            $(this).closest('tr').remove();
+        });
+
+
+        function addnewrow() {
+            $("#doc tbody").append(
+                "<tr><td><select required name='doc_name[]' class='form-control'><option value=''>Select</option><option value='Deed'>பத்திரம்</option><option value='NOC'>NOC</option><option value='Ec/Villankam'>Ec/வில்லங்கம்</option><option value='VAO Certificate'>விஏஓ சான்றிதழ்</option></select></td><td><input required class='form-control' type='file'  name='doc[]' accept='image/jpeg, image/png'></td><td><a onClick='removerow()' class='btn btn-sm btn-danger btnDelete'><i class='mdi mdi-delete mdi-18px'></i></a></td></tr>"
+            );
+        }
+
+        $("#agri").on('click', '.btnDelete', function() {
+            $(this).closest('tr').remove();
+        });
+
+        function addnewrows() {
+            $("#agri tbody").append(
+                "<tr><td><select required class='form-control' name='proof[]'  style='width: 100%;'><option value=''>Select</option><option value='Joint Strap'>கூட்டு பட்டா</option><option value='Strap'>தனிபட்டா</option></select></td><td><input class='form-control' required type='text' name='district[]' maxlength='80' placeholder=''></td><td><input class='form-control' required type='text' name='taluk[]' maxlength='80' placeholder=''></td><td><input class='form-control' required type='text' name='village[]' maxlength='80' placeholder=''></td><td><input class='form-control' required type='text' name='patta_no[]' maxlength='80' placeholder=''></td><td><input class='form-control' required type='text' name='field_no[]' maxlength='80' placeholder=''></td><td><input class='form-control' required type='text' name='subdivision_no[]' maxlength='80' placeholder=''></td><td><input class='form-control' required type='text' name='area1[]' maxlength='80' placeholder=''></td><td><a onClick='removerow()' class='btn btn-sm btn-danger btnDelete'><i class='mdi mdi-delete mdi-18px'></i></a></td></tr>"
+            );
+        }
 
     </script>
 @endpush

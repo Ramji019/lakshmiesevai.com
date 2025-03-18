@@ -25,6 +25,9 @@
                                     {{ csrf_field() }}
                                     <div class="col-lg-6">
                                         <input type="hidden" name="customer_id" value="{{ $cus->id }}">
+                                        <input type="hidden" value="{{ $cus->dist_id }}" id="getdist_id">
+                                        <input type="hidden" value="{{ $cus->taluk_id }}" id="gettaluk_id">
+                                        <input type="hidden" value="{{ $cus->panchayath_id }}" id="getpanchayath_id">
                                         <div class="mb-3 row">
                                             <label for="example-text-input" class="col-sm-2 form-label">Name</label>
                                             <div class="col-sm-10">
@@ -35,66 +38,33 @@
                                         </div>
 
                                         <div class="mb-3 row">
-                                            <label for="example-search-input" class="col-sm-2 form-label">Aadhaar No</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control number" maxlength="12"
-                                                    value="{{ $cus->aadhaar_no }}" type="text" name="aadhaar_no"
-                                                    placeholder="Aadhaar No">
-                                            </div>
-                                        </div>
-
-                                        <div class="mb-3 row">
-                                            <label for="example-email-input" class="col-sm-2 form-label">Email</label>
-                                            <div class="col-sm-10">
-                                                <input value="{{ $cus->email }}" class="form-control" type="email"
-                                                    maxlength="30" name="email" placeholder="Email">
-                                            </div>
-                                        </div>
-
-                                        <div class="mb-3 row">
-                                            <label for="example-url-input" class="col-sm-2 form-label">DOB</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control" value="{{ $cus->date_of_birth }}" type="date"
-                                                    name="date_of_birth" id="example-url-input">
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="example-text-input-lg" class="col-sm-2 form-label">Taluk</label>
-                                            <div class="col-sm-10">
-                                                <select required name="taluk_id" id="taluk" class="form-control">
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="example-text-input-lg" class="col-sm-2 form-label">Aadhar
-                                                Card</label>
-                                            <div class="col-sm-10">
-                                                <input required accept="image/jpeg, image/png" type="file"
-                                                    class="form-control" name="aadhaar_file" />
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="example-text-input-lg" class="col-sm-2 form-label">Signature</label>
-                                            <div class="col-sm-10">
-                                                <input required accept="image/jpeg, image/png" type="file"
-                                                    class="form-control" name="signature" />
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="example-url-input" class="col-sm-2 form-label">Address</label>
-                                            <div class="col-sm-10">
-                                                <textarea class="form-control" maxlength="100" type="text" rows="3" name="address" id="example-url-input"
-                                                    placeholder="Address"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3 row">
                                             <label for="example-month-input" class="col-sm-2 form-label">Phone</label>
                                             <div class="col-sm-10">
                                                 <input class="form-control number" type="text"
                                                     value="{{ $cus->phone }}" name="phone" maxlength="10"
                                                     placeholder="Phone">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 row">
+                                            <label for="example-url-input" class="col-sm-2 form-label">District</label>
+                                            <div class="col-sm-10">
+                                                <select required name="dist_id" id="dist_id" class="form-control">
+                                                    <option value="">Select District</option>
+                                                    @foreach ($districts as $d)
+                                                        <option @if ($cus->dist_id == $d->id) selected @endif
+                                                            value="{{ $d->id }}">{{ $d->district_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 row">
+                                            <label for="example-text-input-lg" class="col-sm-2 form-label">VAO</label>
+                                            <div class="col-sm-10">
+                                                <input class="form-control" type="text"
+                                                    value="{{ $cus->panchayath_name }}" name="panchayath_name" maxlength="50"
+                                                    placeholder="VAO">
                                             </div>
                                         </div>
 
@@ -111,32 +81,51 @@
                                                 </select>
                                             </div>
                                         </div>
-
-                                        <input type="hidden" value="{{ $cus->dist_id }}" id="getdist_id">
-                                        <input type="hidden" value="{{ $cus->taluk_id }}" id="gettaluk_id">
-                                        <input type="hidden" value="{{ $cus->panchayath_id }}" id="getpanchayath_id">
+                                        
                                         <div class="mb-3 row">
-                                            <label for="example-url-input" class="col-sm-2 form-label">District</label>
+                                            <label for="example-search-input" class="col-sm-2 form-label">Aadhaar No</label>
                                             <div class="col-sm-10">
-                                                <select required name="dist_id" id="dist_id" class="form-control">
-                                                    <option value="">Select District</option>
-                                                    @foreach ($districts as $d)
-                                                        <option @if ($cus->dist_id == $d->id) selected @endif
-                                                            value="{{ $d->id }}">{{ $d->district_name }}</option>
-                                                    @endforeach
+                                                <input class="form-control number" maxlength="12"
+                                                    value="{{ $cus->aadhaar_no }}" type="text" name="aadhaar_no"
+                                                    placeholder="Aadhaar No">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 row">
+                                            <label for="example-text-input-lg" class="col-sm-2 form-label">Signature</label>
+                                            <div class="col-sm-10">
+                                                <input required accept="image/jpeg, image/png" type="file"
+                                                    class="form-control" name="signature" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                    <div class="mb-3 row">
+                                            <label for="example-email-input" class="col-sm-2 form-label">Email</label>
+                                            <div class="col-sm-10">
+                                                <input value="{{ $cus->email }}" class="form-control" type="email"
+                                                    maxlength="30" name="email" placeholder="Email">
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="mb-3 row">
+                                            <label for="example-url-input" class="col-sm-2 form-label">DOB</label>
+                                            <div class="col-sm-10">
+                                                <input class="form-control" value="{{ $cus->date_of_birth }}" type="date"
+                                                    name="date_of_birth" id="example-url-input">
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="mb-3 row">
+                                            <label for="example-text-input-lg" class="col-sm-2 form-label">Taluk</label>
+                                            <div class="col-sm-10">
+                                                <select required name="taluk_id" id="taluk" class="form-control">
                                                 </select>
                                             </div>
                                         </div>
+                                       
                                         <div class="mb-3 row">
-                                            <label for="example-text-input-lg" class="col-sm-2 form-label">VAO</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control" type="text"
-                                                value="{{ $cus->panchayath_name }}" name="panchayath_name" maxlength="59"
-                                                placeholder="VAO">
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="example-text-input-lg" class="col-sm-2 form-label">Profile</label>
+                                            <label for="example-text-input-lg" class="col-sm-2 form-label">Photo</label>
                                             <div class="col-sm-10">
                                                 <input class="form-control" maxlength="10" type="file" name="profile"
                                                     placeholder="Profile" id="example-text-input-lg">
@@ -150,9 +139,25 @@
                                                     class="form-control" name="smartcard" />
                                             </div>
                                         </div>
+                                         
+                                        <div class="mb-3 row">
+                                            <label for="example-text-input-lg" class="col-sm-2 form-label">Aadhar
+                                                Card</label>
+                                            <div class="col-sm-10">
+                                                <input required accept="image/jpeg, image/png" type="file"
+                                                    class="form-control" name="aadhaar_file" />
+                                            </div>
+                                        </div>
 
-                                    </div>
-                                    <h3 class="text-center">View Family Details</h3>
+                                        <div class="mb-3 row">
+                                            <label for="example-url-input" class="col-sm-2 form-label">Address</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" maxlength="100" type="text" rows="3" name="address" id="example-url-input"
+                                                    placeholder="Address"></textarea>
+                                            </div>
+                                        </div>
+                                     </div>
+                                    {{-- <h3 class="text-center">View Family Details</h3>
                     <div class="table-responsive">
                     <table id="pricetable" class="table table-bordered">
                         <thead>
@@ -184,20 +189,20 @@
                                             <option @if($fam->relation_status == "Dead")  selected @endif value="Dead">Dead</option>
                                             <option @if($fam->relation_status == "Alive")   selected @endif value="Alive">Alive</option>
                                         </select></td>
-                                        <td><P class="changename_{{ $key }}"> </P>
+                                        <td><P class="changename_{{ $key }}"> </P> --}}
                                            {{--  @if($fam->relationaadhaar_card != "")
                                                 <a target="_blank" href="/upload/users/relationaadhaar_card/{{ $fam->relationaadhaar_card }}" class="btn btn-primary me-2">View</a>
                                               @endif --}}
-                                            <input class="form-control"  type="file" name="doc[]" accept="image/jpeg, image/png"></td>
+                                            {{-- <input class="form-control"  type="file" name="doc[]" accept="image/jpeg, image/png"></td> --}}
 
 
                                            {{--  @if($fam->relationdeath_cert != "")<input class="form-control"  type="hidden" name="doc2[]" value="{{ $fam->relationaadhaar_card }}" accept="image/jpeg, image/png"> @endif --}}
-                                        <td><a onClick='removerow()' class='btn btn-sm btn-danger btnDelete'><i class='mdi mdi-delete mdi-18px'></i></a></td>
+                                        {{-- <td><a onClick='removerow()' class='btn btn-sm btn-danger btnDelete'><i class='mdi mdi-delete mdi-18px'></i></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                        </div>
+                        </div> --}}
 
                          <!-- <h3 class="text-center">Add Family Details</h3>
                                     <table id="pricetable1" class="table table-bordered">

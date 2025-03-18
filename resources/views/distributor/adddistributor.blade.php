@@ -25,24 +25,15 @@
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-sm-2 form-label">Name</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" name="name" maxlength="20" type="text"
+                                            <input required class="form-control" name="name" maxlength="20" type="text"
                                                 id="example-text-input" placeholder="Name">
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3 row">
-                                        <label for="example-search-input" class="col-sm-2 form-label">Aadhaar No</label>
-                                        <div class="col-sm-10">
-                                            <input onkeyup="duplicateaadhar(0)" class="form-control" maxlength="12" type="text" name="aadhaar_no" id="aadhaar_no"
-                                                id="example-search-input" placeholder="Aadhaar No">
-                                                <span id="dupaadhar" style="color:red"></span>
                                         </div>
                                     </div>
 
                                     <div class="mb-3 row">
                                         <label for="example-email-input" class="col-sm-2 form-label">Email</label>
                                         <div class="col-sm-10">
-                                            <input onkeyup="duplicateemail(0)" class="form-control" type="email" maxlength="50" name="email" id="email"
+                                            <input required onkeyup="duplicateemail(0)" class="form-control" type="email" maxlength="50" name="email" id="email"
                                                 id="example-email-input" placeholder="Email">
                                                 <span id="dupemail" style="color:red"></span>
                                         </div>
@@ -51,15 +42,24 @@
                                     <div class="mb-3 row">
                                         <label for="example-url-input" class="col-sm-2 form-label">DOB</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" type="date" name="date_of_birth"
+                                            <input required class="form-control" type="date" name="date_of_birth"
                                                 id="example-url-input">
                                         </div>
                                     </div>
 
                                     <div class="mb-3 row">
+                                        <label for="example-search-input" class="col-sm-2 form-label">Aadhaar No</label>
+                                        <div class="col-sm-10">
+                                            <input required onkeyup="duplicateaadhar(0)" class="form-control" maxlength="12" type="text" name="aadhaar_no" id="aadhaar_no"
+                                                id="example-search-input" placeholder="Aadhaar No">
+                                                <span id="dupaadhar" style="color:red"></span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3 row">
                                         <label for="example-url-input" class="col-sm-2 form-label">Address</label>
                                         <div class="col-sm-10">
-                                            <textarea class="form-control" maxlength="100" type="text" rows="3" name="address" id="example-url-input"
+                                            <textarea required class="form-control" maxlength="100" type="text" rows="3" name="address" id="example-url-input"
                                                 placeholder="Address"></textarea>
                                         </div>
                                     </div>
@@ -69,33 +69,35 @@
                                     <div class="mb-3 row">
                                         <label for="example-month-input" class="col-sm-2 form-label">Phone</label>
                                         <div class="col-sm-10">
-                                            <input onkeyup="duplicatephone(0)" class="form-control number" type="text" name="phone" maxlength="10" id="phone"
+                                            <input required onkeyup="duplicatephone(0)" class="form-control number" type="text" name="phone" maxlength="10" id="phone"
                                                 id="example-month-input" placeholder="Phone">
                                                 <span id="dupphone" style="color:red"></span>
                                         </div>
                                     </div>
 
                                     <div class="mb-3 row">
+                                        <label for="example-text-input-lg" class="col-sm-2 form-label">Password</label>
+                                        <div class="col-sm-10">
+                                            <input required class="form-control" maxlength="10" type="password" name="password"
+                                                maxlength="10" placeholder="Password" id="example-text-input-lg">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3 row">
                                         <label class="col-sm-2 form-label">Gender</label>
                                         <div class="col-sm-10" name="gender">
-                                            <select class="form-select">
+                                            <select required class="form-select">
                                                 <option>Select</option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
                                             </select>
                                         </div>
                                     </div>
+                                   
                                     <div class="mb-3 row">
-                                        <label for="example-text-input-lg" class="col-sm-2 form-label">Password</label>
+                                        <label for="example-text-input-lg" class="col-sm-2 form-label">Photo</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" maxlength="10" type="password" name="password"
-                                                maxlength="10" placeholder="Password" id="example-text-input-lg">
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input-lg" class="col-sm-2 form-label">Profile</label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control" maxlength="10" type="file" name="profile"
+                                            <input required class="form-control" maxlength="10" type="file" name="profile"
                                                 placeholder="Profile" id="example-text-input-lg">
                                         </div>
                                     </div>
