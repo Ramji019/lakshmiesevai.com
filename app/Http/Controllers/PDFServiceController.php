@@ -176,8 +176,12 @@ class PDFServiceController extends Controller
 
     if($request->ser == 1){
       $url = "https://goodapi.in/serviceApi/V1/panFind?apiKey=$apikey&order_id=$application_no&uidNumber=$aadhaar";
+
+    }elseif( $request->ser == 2 ){
+       $url = "https://upbgroup.aisensy.in/api/data_fetch?api_key=3d77fb-c95462-6d17f3-a92b88-9b8b9c&application_no=$application_no&aadhaar_no=$aadhaar";
+
     }else{
-       $url = "https://upbgroup.aisensy.in/api/data_fetch?api_key=b8180f-dff10d-75e341-17953e-09e93b&application_no=$application_no&aadhaar_no=$aadhaar";
+      $url = "https://authorized.p4point.co.in/api/v1/getPanNumber?apiKey=cdf94c6d43b5367276d87107b1538aa50b50eb8f8c665fbcd9f1998abe73957e619d4e&uidNumber=$aadhaar";
     }
 
     $curl = curl_init();
@@ -195,20 +199,35 @@ class PDFServiceController extends Controller
     curl_close($curl);
     $resdata = json_decode($response,true);
     // dd($resdata);
-  if($resdata){
+    if($resdata){
       $status = "";
       if($request->ser == 1){
         $status = $resdata['Status'];
       }else{
         $status = $resdata['status'];
       }
-      if(($request->ser == 1 && $status == "Success") || ($request->ser == 2 && $status == "true")){
-        $pan=$resdata['pan_no'];
-        $message=$resdata['message'];
+      if(($request->ser == 1 && $status == "Success") || ($request->ser == 2 && $status == "true") || ($request->ser == 3 && $status == "100")){
+
+        $name ="";
+        $dob ="";
+        $pan ="";
+
+        if($request->ser == 2){
+          $message=$resdata['message'];
+          $pan=$resdata['pan_no'];
+        }
+        if($request->ser == 3){
+        $message=$resdata['statusMessage'];
+        $pan=$resdata['panNumber'];
+        //$name=$resdata['name'];
+        //$dob=$resdata['dob'];
+        }
         DB::table('pancard_find')->insert([
           'user_id' => Auth::user()->id,
           'aadhaar_no' => $request->aadhaar_no,
           'pan_no' => $pan,
+          'name' => $name,
+          'dob' => $dob,
           'service_id' => $serviceid,
           'amount' => $servicepayment,
           'message' => $message,
@@ -217,6 +236,7 @@ class PDFServiceController extends Controller
         ]);
         $date = date( 'Y-m-d' );
         $time = date( 'H:i:s' );
+
         $service_status = 'Out Payment';
         $ad_info = 'Ramji Wallet Debit(PanCard)';
         $getrawallet = DB::table( 'users' )->select('rawallet')->where('id',1)->first();
@@ -275,8 +295,15 @@ class PDFServiceController extends Controller
         }
         return redirect('/applypdfservice/'.$serviceid)->with('success','Pan No Find Successfully');
       }else{
-        $error=$resdata['message'];
-        return redirect('/applypdfservice/'.$serviceid)->with('error',$error);
+        if($request->ser == 1){
+          $error = $resdata['error'];
+        }else if($request->ser == 2){
+          $message = $resdata['message'];
+          return redirect('/applypdfservice/'.$serviceid)->with('error',$message);
+        }else{
+        $error=$resdata['statusMessage'];
+      }
+      return redirect('/applypdfservice/'.$serviceid)->with('error',$error);
       }
 
     }else{
@@ -416,7 +443,7 @@ class PDFServiceController extends Controller
     }else{
       $application_no = rand(00000000,99999999);
       $url = "https://server.webtechly.co.in/rcpdf.php?api_key=3d7a47-5ca26a-a9f00f-83e41b-482ca3&application_no=$application_no&rc_number=$rc_no";
-    }  
+    }
     $crl = curl_init();
     curl_setopt( $crl, CURLOPT_URL, $url );
     curl_setopt( $crl, CURLOPT_FRESH_CONNECT, true );
@@ -521,7 +548,11 @@ class PDFServiceController extends Controller
 
       return redirect('/applypdfservice/'.$serviceid)->with('success',$message);
     }else{
-        $error=$result['error'];
+      if($request->ser == 1){
+      $error=$result['error'];
+    }else{
+      $error=$result['message'];
+    }
       return redirect('/applypdfservice/'.$serviceid)->with('error',$error);
     }
   }else{
