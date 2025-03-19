@@ -317,18 +317,25 @@ class PDFServiceController extends Controller
     $dl_no = $request->dl_no;
     $dob = $request->dob;
     $apikey = '3e2a83212d3e5e4755390b84612f110d45d393c8c75946786de9ea4f283dcaa9';
+    $Apikey = 'cdf94c6d43b5367276d87107b1538aa50b50eb8f8c665fbcd9f1998abe73957e619d4e';
     $amount = $request->amount;
     $servicepayment = $request->servicepayment;
     $serviceid = $request->serviceid;
 
-    $url = "https://goodapi.in/serviceApi/V1/driving_licence_hd.php";
+    if($request->ser == 1){
 
+      $url = "https://goodapi.in/serviceApi/V1/driving_licence_hd.php";
+
+   }else{
+
+      $url = "https://authorized.p4point.co.in/api/v1/dlVerificationPDF?apiKey=$Apikey&dlNo=$dl_no&dob=$dob";
+   }
     $data = array(
       'apiKey' => $apikey,
       'dlNo' => $dl_no,
       'dob' => $dob
     );
-
+    if($request->ser == 1){
     $curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_URL => $url,
@@ -341,21 +348,43 @@ class PDFServiceController extends Controller
       CURLOPT_CUSTOMREQUEST => 'POST',
       CURLOPT_POSTFIELDS => $data,
     ));
-
+  }elseif($request->ser == 2){
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+    CURLOPT_URL =>  $url,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_VERBOSE => true,
+    ));
+  }
     $response = curl_exec($curl);
     curl_close($curl);
 
     $resdata = json_decode($response, true);
 
-    if($resdata['StatusCode'] == "100"){
+    if($resdata){
+      $status = "";
+     if($request->ser == 1){
+       $status = $resdata['Status'];
+     }else{
+       $status = $resdata['status'];
+     }
+    if(($request->ser == 1 && $resdata['StatusCode'] == "100") || ($request->ser == 2 && $resdata['status'] == "100")){
       $pdf = $resdata['pdf'];
       $pdf_parts = explode(";base64", $pdf);
-      $pdf_types = explode("pdf/", $pdf_parts[0]);
-      $pdf_type = base64_decode($pdf_parts[1]);
-      $filename = uniqid().'.pdf';
-      file_put_contents('upload/dl/'.$filename,$pdf_type );
+       $pdf_types = explode("pdf/", $pdf_parts[0]);
+       $pdf_type = base64_decode($pdf_parts[1]);
+       $filename = uniqid().'.pdf';
+       file_put_contents('upload/dl/'.$filename,$pdf_type );
+      if($request->ser == 1){
       $message = $resdata['message'];
-
+      }else{
+      $message = $resdata['statusMessage'];
+      }
       DB::table('dl')->insert([
         'user_id' => Auth::user()->id,
         'dlnumber' => $request->dl_no,
@@ -366,8 +395,7 @@ class PDFServiceController extends Controller
         'status'    => 'Approved',
         'date'    => date("Y-m-d H:i:s"),
       ]);
-      $date = date( 'Y-m-d' );
-      $time = date( 'H:i:s' );
+
       $service_status = 'Out Payment';
       $ad_info = 'Ramji Wallet Debit(DL PDF)';
       $getrawallet = DB::table( 'users' )->select('rawallet')->where('id',1)->first();
@@ -383,6 +411,8 @@ class PDFServiceController extends Controller
           }
           $newbalance2 = $balance1 + $amount;
           $newbalance3 = $balance2 - $amount;
+          $date = date( 'Y-m-d' );
+          $time = date( 'H:i:s' );
       $sql = "insert into ramji_payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('2','1','2','$amount','$ad_info', '$service_status','$time','$date','2','$newbalance3')";
       DB::insert( DB::raw( $sql ) );
       $sql = "update users set rawallet = rawallet + $amount where id = 1";
@@ -400,8 +430,7 @@ class PDFServiceController extends Controller
         if($getservicename){
           $servicename = $getservicename->name;
         }
-        $date = date( 'Y-m-d' );
-        $time = date( 'H:i:s' );
+       
         $service_status = 'Out Payment';
         $ad_info = 'Service Payment'. ' '. $servicename;
 
@@ -430,6 +459,7 @@ class PDFServiceController extends Controller
       return redirect('/applypdfservice/'.$serviceid)->with('error',$error);
     }
   }
+  }
 
   public function submitrcfind(Request $request){
     $user_id = Auth::user()->id;
@@ -442,7 +472,7 @@ class PDFServiceController extends Controller
       $url = "https://goodapi.in/serviceApi/V1/Rc-Verification.php?apiKey=$apikey&rcno=$rc_no";
     }else{
       $application_no = rand(00000000,99999999);
-      $url = "https://server.webtechly.co.in/rcpdf.php?api_key=3d7a47-5ca26a-a9f00f-83e41b-482ca3&application_no=$application_no&rc_number=$rc_no";
+      $url = "https://server.webtechly.co.in/rcpdf.php?api_key=3d77fb-c95462-6d17f3-a92b88-9b8b9c&application_no=$application_no&rc_number=$rc_no";
     }
     $crl = curl_init();
     curl_setopt( $crl, CURLOPT_URL, $url );
