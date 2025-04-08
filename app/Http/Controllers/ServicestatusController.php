@@ -5962,14 +5962,37 @@ public function caneditupdate(Request $request){
                 'applied_date'               => date("Y-m-d"),
                 'created_at'                 => date("Y-m-d"),
             ]);
+        
+    } elseif($serviceid == 208 || $serviceid == 209 || $serviceid == 210 || $serviceid == 211){
+
+        if ($request->aadhaar_card != null) {
+            $aadhaar_card = uniqid().'.'.$request->file('aadhaar_card')->extension();
+            $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR. 'aadhaar_card' . DIRECTORY_SEPARATOR);
+            move_uploaded_file($_FILES['aadhaar_card']['tmp_name'], $filepath . $aadhaar_card);
+            DB::table( 'can_edit' )->where( 'id', $request->applied_serviceid )->update( [
+                'aadhaar_card'         => $aadhaar_card,
+            ] );
         }
 
+        DB::table('can_edit')->where('id', $request->applied_serviceid)->update([
 
+            'service_id'                 => $request ->serviceid,
+            'amount'                     => $request->amount,
+            'can_number'                 => $request->can_number,
+            'mobile'                     => $request->mobile,
+            'dob'                        => $request->dob,
+            'name_tamil'                 => $request->name_tamil,
+            'name_english'               => $request->name_english,
+            'status'                     => 'Pending',
+            'applied_date'               => date("Y-m-d"),
+            'created_at'                 => date("Y-m-d"),
+        ]);
 
+    }    
 
-        DB::table( 'can_edit' )->where( 'id', $request->applied_serviceid )->update( [
-            'status' => $status,
-        ] );
+    DB::table( 'can_edit' )->where( 'id', $request->applied_serviceid )->update( [
+        'status' => $status,
+    ] );
 
     }
 
