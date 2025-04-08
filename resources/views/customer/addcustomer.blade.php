@@ -17,6 +17,12 @@
                         </div>
                     @endif
                     <div class="card-body">
+                        <div class="col-auto">
+                            <div class="d-flex align-items-center gap-2 justify-content-lg-end">
+                                <a href="{{ url('customers') }}" class="btn-sm btn btn-danger"><i
+                                        class=""></i>View Customers</a>
+                            </div>
+                        </div>
                         <h5 class="card-title">Add Customer</h5>
                         <div class="row">
                             <form class="row g-4" action="{{ url('/savecustomer') }}" enctype="multipart/form-data"

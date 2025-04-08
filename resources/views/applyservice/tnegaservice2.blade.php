@@ -17,9 +17,10 @@
                         </div>
                     @endif
                     <div class="card-body">
-                        <h1 class="card-title">{{ $servicename }}</h1>
-                        <h1 class="card-title">Service Payment : <span class="text-danger" id="canpayment">{{ $payment }}</span></h1>
-                        <h5><span class="text-danger" id="cantext"></span></h5>                           <div class="row">
+                        <h5 class="card-title">{{ $servicename }}</h5>
+                        <h6 class="card-title">Service Payment : <span class="text-danger" id="canpayment">{{ $payment }}</span></h6>
+                        <h5><span class="text-danger" id="cantext"></span></h5> 
+                        <div class="row">
                             <form class="row g-4" action="{{ url('submitapply_tnegaservices2') }}" enctype="multipart/form-data"
                                 method="post">
                                 @csrf

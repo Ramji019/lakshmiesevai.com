@@ -1386,3 +1386,96 @@ alter table tnega_services add institute_address_english text DEFAULT NULL after
 
 //18-03-2025
 alter table pancard add opid text Default NULL;
+
+//08-04-2025
+CREATE TABLE `utislpan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `service_id` int(11) DEFAULT 0,
+  `user_id` int(11) DEFAULT 0,
+  `retailer_id` int(11) DEFAULT 0,
+  `distributor_id` int(11) DEFAULT 0,
+  `admin_id` int(11) DEFAULT 0,
+  `amount` decimal(10,2) DEFAULT 0.00,
+  `name` varchar(200) DEFAULT NULL,
+  `mobile` varchar(10) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `pan_no` varchar(10) DEFAULT NULL,
+  `date_of_birth` varchar(100) DEFAULT NULL,
+  `father_name` varchar(20) DEFAULT NULL,
+  `mode` varchar(20) DEFAULT NULL,
+  `aadhaar_pdf` varchar(20) DEFAULT NULL,
+  `pan_file` varchar(20) DEFAULT NULL,
+  `signature` varchar(20) DEFAULT NULL,
+  `photo` varchar(20) DEFAULT NULL,
+  `acknowledgement` varchar(20) DEFAULT NULL,
+  `application_no` varchar(50) DEFAULT NULL,
+  `certificate` varchar(20) DEFAULT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  `remarks` varchar(100) DEFAULT NULL,
+  `applied_date` varchar(10) DEFAULT NULL,
+  `completed_date` varchar(10) DEFAULT NULL,
+  `created_at` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE utislpanservice (
+  id int NOT NULL AUTO_INCREMENT,
+  service_name varchar(200) DEFAULT NULL,
+  ser_image varchar(20) DEFAULT NULL,
+  status varchar(20) DEFAULT NULL,
+  date varchar(20) DEFAULT NULL,
+  PRIMARY KEY (id)
+)  ENGINE=InnoDB;
+
+CREATE TABLE utislpanpayment (
+  id int NOT NULL AUTO_INCREMENT,
+  parent_id int DEFAULT 0,
+  service_id int DEFAULT 0,
+  distributor_amount decimal(10,2) DEFAULT 0,
+  retailer_amount decimal(10,2) DEFAULT 0,
+  customer_amount decimal(10,2) DEFAULT 0,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE `patta` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `service_id` int(11) DEFAULT 0,
+  `user_id` int(11) DEFAULT 0,
+  `retailer_id` int(11) DEFAULT 0,
+  `distributor_id` int(11) DEFAULT 0,
+  `admin_id` int(11) DEFAULT 0,
+  `amount` decimal(10,2) DEFAULT 0.00,
+  `dist_id` int(11) DEFAULT 0,
+  `taluk_id` int(11) DEFAULT 0,
+  `can_no` varchar(15) DEFAULT NULL,
+  `reg_office` varchar(50) DEFAULT NULL,
+  `subdivision_no` varchar(30) DEFAULT NULL,
+  `rev_village` varchar(50) DEFAULT NULL,
+  `survey_no` varchar(30) DEFAULT NULL,
+  `transacted_area` varchar(50) DEFAULT NULL,
+  `bond_doc` varchar(50) DEFAULT NULL,
+  `ec` varchar(50) DEFAULT NULL,
+  `acknowledgement` varchar(20) DEFAULT NULL,
+  `application_no` varchar(50) DEFAULT NULL,
+  `application` varchar(50) DEFAULT NULL,
+  `lects` varchar(50) DEFAULT NULL,
+  `selects` varchar(50) DEFAULT NULL,
+  `certificate` varchar(20) DEFAULT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  `remarks` varchar(100) DEFAULT NULL,
+  `applied_date` varchar(10) DEFAULT NULL,
+  `completed_date` varchar(10) DEFAULT NULL,
+  `created_at` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+
+alter table utislpan add selects varchar(20) DEFAULT NULL after application_no;
+alter table utislpan add lects varchar(20) DEFAULT NULL after application_no;
+alter table utislpan add application varchar(20) DEFAULT NULL after application_no;
+
+alter table patta add aadhaar_card varchar(20) DEFAULT NULL;
+alter table patta add patta_no varchar(20) DEFAULT NULL;
+alter table patta add mobile varchar(10) DEFAULT NULL;
+
+update services set ser_id = 2 where id=219;
+update services set ser_id = 7 where id in(152,153,154);

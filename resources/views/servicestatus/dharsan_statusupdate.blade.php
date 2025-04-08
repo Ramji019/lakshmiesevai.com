@@ -21,6 +21,8 @@
                                         aria-label="Close"></button>
                                 </div>
                             @endif
+                            <h5 class="card-title">{{ $servicename }}</h5>
+
                             <form action="{{ url('/dharsan_update') }}" id="formAccountSettings" method="POST"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}

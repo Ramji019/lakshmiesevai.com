@@ -61,7 +61,7 @@
                             <li><a href="{{ url('/panservices') }}">PAN SERVICES</a></li>
                         </ul>
                     </li>
-                    <li class="treeview">
+                    {{-- <li class="treeview">
                         <a href=""><i class="bx bx-home-heart"></i><span>Course Certificate</span>
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
@@ -70,7 +70,7 @@
                             <li><a href="{{ url('/coursepayment') }}">CoursePayment</a></li>
                             <li><a href="{{ url('/courses') }}">Apply Certificate</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li class="treeview">
                         <a href=""><i class="bx bx-home-heart"></i><span>Services</span>
                             <i class="fa fa-angle-right"></i></a>
@@ -102,19 +102,19 @@
                             <li><a href="{{ url('/retailers') }}">View Retailer</a></li>
                         </ul>
                     </li>
-                    <li class="treeview">
+                    {{-- <li class="treeview">
                         <a href=""><i class="bx bx-home-heart"></i><span>TNEGA</span>
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
                             <li><a href="{{ url('/addcustomer') }}">Add Customer</a></li>
                             <li><a href="{{ url('/customers') }}">View Customers</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li class="treeview">
-                        <a href=""><i class="bx bx-home-heart"></i><span>Other Services</span>
+                        <a href=""><i class="bx bx-home-heart"></i><span>Our Service</span>
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
-                            <li><a href="{{ url('allservices') }}">Services</a></li>
+                            <li><a href="{{ url('/ourservice') }}">Our Service</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -189,7 +189,6 @@
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
                             <li><a href="{{ url('/findpayment') }}">Payment</a></li>
-                            <li><a href="{{ url('/pdfservices') }}">PDF SERVICE</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -214,17 +213,16 @@
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
                             <li><a href="{{ url('/panservicepayment') }}">PanPayment</a></li>
-                            <li><a href="{{ url('/panservices') }}">PAN SERVICE</a></li>
                         </ul>
                     </li>
-                    <li class="treeview">
+                    {{-- <li class="treeview">
                         <a href=""><i class="bx bx-home-heart"></i><span>Course Certificate</span>
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
                             <li><a href="{{ url('/coursepayment') }}">CoursePayment</a></li>
                             <li><a href="{{ url('/courses') }}">Apply Certificate</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li class="treeview">
                         <a href=""><i class="bx bx-home-heart"></i><span>Distributor</span>
                             <i class="fa fa-angle-right"></i></a>
@@ -241,19 +239,19 @@
                             <li><a href="{{ url('/retailers') }}">View Retailer</a></li>
                         </ul>
                     </li>
-                    <li class="treeview">
+                    {{-- <li class="treeview">
                         <a href=""><i class="bx bx-home-heart"></i><span>TNEGA</span>
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
                             <li><a href="{{ url('/addcustomer') }}">Add Customer</a></li>
                             <li><a href="{{ url('/customers') }}">View Customers</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li class="treeview">
-                        <a href=""><i class="bx bx-home-heart"></i><span>Other Services</span>
+                        <a href=""><i class="bx bx-home-heart"></i><span>Our Service</span>
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
-                            <li><a href="{{ url('allservices') }}">Services</a></li>
+                            <li><a href="{{ url('/ourservice') }}">Our Service</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -300,31 +298,10 @@
                         </ul>
                     </li>
                     <li class="treeview">
-                        <a href=""><i class="bx bx-home-heart"></i><span>PDF Services</span>
+                        <a href=""><i class="bx bx-home-heart"></i><span>Our Service</span>
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
-                            <li><a href="{{ url('/pdfservices') }}">PDF SERVICE</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href=""><i class="bx bx-home-heart"></i><span>UTILITY Services</span>
-                            <i class="fa fa-angle-right"></i></a>
-                        <ul class="treeview-menu">
-                            <li><a href="{{ url('/utility') }}">UTILITY</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href=""><i class="bx bx-home-heart"></i><span>PanCard Services</span>
-                            <i class="fa fa-angle-right"></i></a>
-                        <ul class="treeview-menu">
-                            <li><a href="{{ url('/panservices') }}">PAN SERVICE</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href=""><i class="bx bx-home-heart"></i><span>Course Certificate</span>
-                            <i class="fa fa-angle-right"></i></a>
-                        <ul class="treeview-menu">
-                            <li><a href="{{ url('/courses') }}">Apply Certificate</a></li>
+                            <li><a href="{{ url('/ourservice') }}">Our Service</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -335,7 +312,7 @@
                             <li><a href="{{ url('/retailers') }}">View Retailer</a></li>
                         </ul>
                     </li>
-                    <li class="treeview">
+                    {{-- <li class="treeview">
                         <a href=""><i class="bx bx-home-heart"></i><span>TNEGA</span>
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
@@ -349,7 +326,7 @@
                         <ul class="treeview-menu">
                             <li><a href="{{ url('allservices') }}">Services</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li class="treeview">
                         <a href=""><i class="bx bx-home-heart"></i><span>Wallet</span>
                             <i class="fa fa-angle-right"></i></a>
@@ -386,46 +363,10 @@
                         </ul>
                     </li>
                     <li class="treeview">
-                        <a href=""><i class="bx bx-home-heart"></i><span>PDF Services</span>
+                        <a href=""><i class="bx bx-home-heart"></i><span>Our Service</span>
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
-                            <li><a href="{{ url('/pdfservices') }}">PDF SERVICE</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href=""><i class="bx bx-home-heart"></i><span>UTILITY Services</span>
-                            <i class="fa fa-angle-right"></i></a>
-                        <ul class="treeview-menu">
-                            <li><a href="{{ url('/utility') }}">UTILITY</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href=""><i class="bx bx-home-heart"></i><span>PanCard Services</span>
-                            <i class="fa fa-angle-right"></i></a>
-                        <ul class="treeview-menu">
-                            <li><a href="{{ url('/panservices') }}">PAN SERVICE</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href=""><i class="bx bx-home-heart"></i><span>Course Certificate</span>
-                            <i class="fa fa-angle-right"></i></a>
-                        <ul class="treeview-menu">
-                            <li><a href="{{ url('/courses') }}">Apply Certificate</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href=""><i class="bx bx-home-heart"></i><span>TNEGA</span>
-                            <i class="fa fa-angle-right"></i></a>
-                        <ul class="treeview-menu">
-                            <li><a href="{{ url('/addcustomer') }}">Add Customer</a></li>
-                            <li><a href="{{ url('/customers') }}">View Customers</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href=""><i class="bx bx-home-heart"></i><span>Other Services</span>
-                            <i class="fa fa-angle-right"></i></a>
-                        <ul class="treeview-menu">
-                            <li><a href="{{ url('allservices') }}">Services</a></li>
+                            <li><a href="{{ url('/ourservice') }}">Our Service</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -464,41 +405,10 @@
                         </ul>
                     </li>
                     <li class="treeview">
-                        <a href=""><i class="bx bx-home-heart"></i><span>PDF Services</span>
+                        <a href=""><i class="bx bx-home-heart"></i><span>Our Service</span>
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
-                            <li><a href="{{ url('/pdfservices') }}">PDF SERVICE</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href=""><i class="bx bx-home-heart"></i><span>UTILITY Services</span>
-                            <i class="fa fa-angle-right"></i></a>
-                        <ul class="treeview-menu">
-                            <li><a href="{{ url('/utility') }}">UTILITY</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href=""><i class="bx bx-home-heart"></i><span>PanCard Services</span>
-                            <i class="fa fa-angle-right"></i></a>
-                        <ul class="treeview-menu">
-                            <li><a href="{{ url('/panservices') }}">PAN SERVICE</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href=""><i class="bx bx-home-heart"></i><span>Course Certificate</span>
-                            <i class="fa fa-angle-right"></i></a>
-                        <ul class="treeview-menu">
-                            <li><a href="{{ url('/courses') }}">Apply Certificate</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href=""><i class="bx bx-home-heart"></i><span>Services</span>
-                            <i class="fa fa-angle-right"></i></a>
-                        {{-- <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ url('/allservice') }}/{{ Auth::user()->id }}">TNeGA</a></li>
-                        </ul> --}}
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ url('allservices') }}">Other Services</a></li>
+                            <li><a href="{{ url('/ourservice') }}">Our Service</a></li>
                         </ul>
                     </li>
                     <li class="treeview">

@@ -44,6 +44,39 @@ public function allservices()
     return view('services.allservices',compact('ourservice'));
 }
 
+public function ourservice()
+{
+  return view('services.ourservice');
+}
+
+public function viewcanservice() {
+    $services = DB::table('services')->where('ser_id', '=', 4 )->where('status', '=', 'Active' )->orderBy( 'id' , 'Asc' )->get();
+    return view('applyservice.viewcanservice',compact( 'services'));
+}
+public function viewpattaservice() {
+    $services = DB::table('services')->where('ser_id', '=', 2 )->where('status', '=', 'Active' )->orderBy( 'id' , 'Asc' )->get();
+    return view('applyservice.viewpattaservice',compact( 'services'));
+}
+
+public function viewvoter() {
+    $services = DB::table('services')->where('ser_id', '=', 5 )->where('status', '=', 'Active' )->orderBy( 'id' , 'Asc' )->get();
+    return view('applyservice.viewvoter',compact( 'services'));
+}
+public function viewsoftware() {
+    $services = DB::table('services')->where('ser_id', '=', 6 )->where('status', '=', 'Active' )->orderBy( 'id' , 'Asc' )->get();
+    return view('applyservice.viewsoftware',compact( 'services'));
+}
+
+public function utislpanservices(){
+    $service = DB::table('services')->where('ser_id', '=', 3 )->where('status', '=', 'Active' )->orderBy( 'id' , 'Asc' )->get();
+    return view( 'utislpancard.utislpanservices',compact('service'));
+  }
+
+  public function viewcourseservice() {
+    $services = DB::table('services')->where('ser_id', '=', 7 )->where('status', '=', 'Active' )->orderBy( 'id' , 'Asc' )->get();
+    return view('applyservice.viewcourseservice',compact( 'services'));
+}
+
 public function subservice( $id )
 {
     if(Auth::user()->user_type_id != 1){
@@ -403,10 +436,25 @@ public function applyservices($serviceid) {
 }  elseif ($serviceid == 183 || $serviceid == 184 || $serviceid == 185 || $serviceid == 186){
  return view( 'applyservice.dharsanservice',compact('serviceid','districts','servicename','amount','customers','payment'));
 
-}  elseif ($serviceid == 187 ){
-    return view( 'applyservice.dharsanservice',compact('serviceid','districts','servicename','amount','customers','payment'));
-   }
+// }  elseif ($serviceid == 187 ){
+//     return view( 'applyservice.dharsanservice',compact('serviceid','districts','servicename','amount','customers','payment'));
 
+} elseif ($serviceid == 208 || $serviceid == 209 || $serviceid == 210 || $serviceid == 211){
+    return view( 'applyservice.can_editservice',compact('serviceid','districts','servicename','amount','customers','payment'));
+
+}  elseif ($serviceid == 213 || $serviceid == 214 || $serviceid == 215 || $serviceid == 219){
+    return view( 'applyservice.pattaservice',compact('serviceid','districts','servicename','amount','customers','payment'));
+    
+} elseif ( $serviceid == 217 ){
+    $mainbalance = DB::table( 'users' )->select('wallet')->where('id',2)->first();
+    $pandetails = DB::table( 'utislpan' )->where('user_id',Auth::user()->id)->where('service_id',$serviceid)->orderBy( 'id', 'Desc' )->get();
+    return view( 'applyservice.newpan',compact('serviceid','districts','servicename','amount','customers','payment','pandetails','mainbalance'));
+    
+ }elseif ( $serviceid == 218 ){
+    $mainbalance = DB::table( 'users' )->select('wallet')->where('id',2)->first();
+    $pandetails = DB::table( 'utislpan' )->where('user_id',Auth::user()->id)->where('service_id',$serviceid)->orderBy( 'id', 'Desc' )->get();
+    return view( 'applyservice.utislpancorrection',compact('serviceid','districts','servicename','amount','customers','payment','pandetails','mainbalance'));
+ }
 }
 
 
@@ -6159,6 +6207,313 @@ public function submitapply_dharsan(Request $request){
     $newbalance = $balance + $servicepayment;
     $newbalance1 = Auth::user()->wallet - $servicepayment;
 
+    $sql = "insert into payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('$user_id','$user_id','2','$servicepayment','$ad_info', '$service_status','$time','$date','$user_id','$newbalance1')";
+    DB::insert( DB::raw( $sql ) );
+    $sql = "update users set wallet = wallet + $servicepayment where id = 2";
+    DB::update( DB::raw( $sql ) );
+    $service_status = 'IN Payment';
+    $sql = "insert into payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('$user_id','2','$user_id','$servicepayment','$ad_info', '$service_status','$time','$date','$user_id','$newbalance')";
+    DB::insert( DB::raw( $sql ) );
+    $sql = "update users set wallet = wallet - $servicepayment where id = $user_id";
+    DB::update( DB::raw( $sql ) );
+
+    return redirect("appliedservice/Pending")->With("success","Application submitted Succesfully");
+
+}
+
+public function submitapply_patta(Request $request){
+
+    $user_id = 0;
+    $retailer_id = 0;
+    $distributor_id = 0;
+    if(Auth::user()->user_type_id == 3){
+        $user_id = $request ->user_id;
+        $distributor_id = Auth::user()->id;
+    }elseif(Auth::user()->user_type_id == 4){
+        $user_id = $request ->user_id;
+        $retailer_id = Auth::user()->id;
+    } elseif(Auth::user()->user_type_id == 5){
+        $user_id = Auth::user()->id;
+    }
+    $serviceid = $request ->serviceid;
+    DB::table( 'patta' )->insert( [
+     'user_id'      => $user_id,
+     'retailer_id'  => $retailer_id,
+     'distributor_id'  => $distributor_id,
+     'service_id'   => $request ->serviceid,
+     'amount'       => $request->amount,
+     'can_no'         => $request->can_no,
+     'dist_id'         => $request->dist_id,
+     'taluk_id'       => $request->taluk_id,
+     'reg_office'       => $request->reg_office,
+     'subdivision_no'          => $request->subdivision_no,
+     'rev_village'          => $request->rev_village,
+     'survey_no'          => $request->survey_no,
+     'transacted_area'          => $request->transacted_area,
+
+     'status'       => 'Pending',
+     'applied_date' => date("Y-m-d"),
+     'created_at'   => date("Y-m-d"),
+ ] );
+
+ $insertid = DB::getPdo()->lastInsertId();
+
+    $bond_doc = "";
+    if ($request->bond_doc != null) {
+        $bond_doc = uniqid().'.'.$request->file('bond_doc')->extension();
+        $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . 'bond_doc' . DIRECTORY_SEPARATOR);
+        move_uploaded_file($_FILES['bond_doc']['tmp_name'], $filepath . $bond_doc);
+    }
+    DB::table('patta')->where('id', $insertid)->update([
+        'bond_doc'         => $bond_doc,
+    ]);
+    $ec = "";
+    if ($request->ec != null) {
+        $ec = uniqid().'.'.$request->file('ec')->extension();
+        $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . 'ec' . DIRECTORY_SEPARATOR);
+        move_uploaded_file($_FILES['ec']['tmp_name'], $filepath . $ec);
+    }
+    DB::table('patta')->where('id', $insertid)->update([
+        'ec'         => $ec,
+    ]);
+
+    $servicepayment = $request->service_amount;
+    if(Auth::user()->user_type_id == 3){
+        $user_id = $distributor_id;
+    }elseif(Auth::user()->user_type_id == 4){
+        $user_id = $retailer_id;
+    }elseif(Auth::user()->user_type_id == 5){
+        $user_id = $user_id;
+    }
+    $getservicename = DB::table( 'services' )->select('service_name')->where('id',$serviceid)->first();
+    $servicename = "";
+    if($getservicename){
+        $servicename = $getservicename->service_name;
+    }
+    $date = date( 'Y-m-d' );
+    $time = date( 'H:i:s' );
+    $service_status = 'Out Payment';
+    $ad_info = 'Service Payment'. ' '. $servicename;
+    $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+    $balance = 0;
+    if($getwallet){
+        $balance = $getwallet->wallet;
+    }
+    $newbalance = $balance + $servicepayment;
+    $newbalance1 = Auth::user()->wallet - $servicepayment;
+
+    $sql = "insert into payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('$user_id','$user_id','2','$servicepayment','$ad_info', '$service_status','$time','$date','$user_id','$newbalance1')";
+    DB::insert( DB::raw( $sql ) );
+    $sql = "update users set wallet = wallet + $servicepayment where id = 2";
+    DB::update( DB::raw( $sql ) );
+    $service_status = 'IN Payment';
+    $sql = "insert into payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('$user_id','2','$user_id','$servicepayment','$ad_info', '$service_status','$time','$date','$user_id','$newbalance')";
+    DB::insert( DB::raw( $sql ) );
+    $sql = "update users set wallet = wallet - $servicepayment where id = $user_id";
+    DB::update( DB::raw( $sql ) );
+
+    return redirect("appliedservice/Pending")->With("success","Application submitted Succesfully");
+
+}
+
+public function submitutislnew(Request $request){
+    // dd($request->all());
+    $user_id = 0;
+    $retailer_id = 0;
+    $distributor_id = 0;
+    if(Auth::user()->user_type_id == 3){
+        $user_id = $request ->user_id;
+        $distributor_id = Auth::user()->id;
+    }elseif(Auth::user()->user_type_id == 4){
+        $user_id = $request ->user_id;
+        $retailer_id = Auth::user()->id;
+    } elseif(Auth::user()->user_type_id == 5){
+        $user_id = Auth::user()->id;
+    }
+    $serviceid = $request ->serviceid;
+    DB::table( 'utislpan' )->insert( [
+        'user_id'             =>   $user_id,
+        'retailer_id'         =>   $retailer_id,
+        'distributor_id'      =>   $distributor_id,
+        'service_id'          => $request ->serviceid,
+        // 'amount'              => $request->amount,
+        'name'                => $request->name,
+        'mobile'              => $request->mobile,
+        'email'               => $request->email,
+        'date_of_birth'       => $request->date_of_birth,
+        'father_name'         => $request->father_name,
+        'status'              => 'Pending',
+        'applied_date'        => date("Y-m-d"),
+        'created_at'          => date("Y-m-d"),
+    ] );
+
+    $insertid = DB::getPdo()->lastInsertId();
+
+    $aadhaar_pdf = "";
+    if ($request->aadhaar_pdf != null) {
+        $aadhaar_pdf = uniqid().'.'.$request->file('aadhaar_pdf')->extension();
+        $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . 'aadhaarpdf' . DIRECTORY_SEPARATOR);
+        move_uploaded_file($_FILES['aadhaar_pdf']['tmp_name'], $filepath . $aadhaar_pdf);
+    }
+    DB::table('utislpan')->where('id', $insertid)->update([
+        'aadhaar_pdf'         => $aadhaar_pdf,
+    ]);
+    $signature = "";
+    if ($request->signature != null) {
+        $signature = uniqid().'.'.$request->file('signature')->extension();
+        $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . 'signature' . DIRECTORY_SEPARATOR);
+        move_uploaded_file($_FILES['signature']['tmp_name'], $filepath . $signature);
+    }
+    DB::table('utislpan')->where('id', $insertid)->update([
+        'signature'         => $signature,
+    ]);
+    $photo = "";
+    if ($request->photo != null) {
+        $photo = uniqid().'.'.$request->file('photo')->extension();
+        $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . 'photo' . DIRECTORY_SEPARATOR);
+        move_uploaded_file($_FILES['photo']['tmp_name'], $filepath . $photo);
+    }
+    DB::table('utislpan')->where('id', $insertid)->update([
+        'photo'         => $photo,
+    ]);
+
+    $servicepayment = $request->servicepayment;
+    if(Auth::user()->user_type_id == 3){
+        $user_id = $distributor_id;
+    }elseif(Auth::user()->user_type_id == 4){
+        $user_id = $retailer_id;
+    }elseif(Auth::user()->user_type_id == 5){
+        $user_id = $user_id;
+    }
+    $getservicename = DB::table( 'utislpanservice' )->select('service_name')->where('id',$serviceid)->first();
+    $servicename = "";
+    if($getservicename){
+        $servicename = $getservicename->service_name;
+    }
+    $date = date( 'Y-m-d' );
+    $time = date( 'H:i:s' );
+    $service_status = 'Out Payment';
+    $ad_info = 'Service Payment'. ' '. $servicename;
+    $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+    $balance = 0;
+    if($getwallet){
+        $balance = $getwallet->wallet;
+    }
+    $newbalance = $balance + $servicepayment;
+    $newbalance1 = Auth::user()->wallet - $servicepayment;
+   
+    $sql = "insert into payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('$user_id','$user_id','2','$servicepayment','$ad_info', '$service_status','$time','$date','$user_id','$newbalance1')";
+    DB::insert( DB::raw( $sql ) );
+    $sql = "update users set wallet = wallet + $servicepayment where id = 2";
+    DB::update( DB::raw( $sql ) );
+    $service_status = 'IN Payment';
+    $sql = "insert into payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('$user_id','2','$user_id','$servicepayment','$ad_info', '$service_status','$time','$date','$user_id','$newbalance')";
+    DB::insert( DB::raw( $sql ) );
+    $sql = "update users set wallet = wallet - $servicepayment where id = $user_id";
+    DB::update( DB::raw( $sql ) );
+
+    return redirect("appliedservice/Pending")->With("success","Application submitted Succesfully");
+
+}
+
+
+public function submitutisl_corection(Request $request){
+    // dd($request->all());
+    $user_id = 0;
+    $retailer_id = 0;
+    $distributor_id = 0;
+    if(Auth::user()->user_type_id == 3){
+        $user_id = $request ->user_id;
+        $distributor_id = Auth::user()->id;
+    }elseif(Auth::user()->user_type_id == 4){
+        $user_id = $request ->user_id;
+        $retailer_id = Auth::user()->id;
+    } elseif(Auth::user()->user_type_id == 5){
+        $user_id = Auth::user()->id;
+    }
+    $serviceid = $request ->serviceid;
+    DB::table( 'utislpan' )->insert( [
+        'user_id'             =>   $user_id,
+        'retailer_id'         =>   $retailer_id,
+        'distributor_id'      =>   $distributor_id,
+        'service_id'          => $request ->serviceid,
+        'pan_no'              => $request ->pan_no,
+        'mode'                => $request ->mode,
+        // 'amount'              => $request->amount,
+        'name'                => $request->name,
+        'mobile'              => $request->mobile,
+        'email'               => $request->email,
+        'date_of_birth'       => $request->date_of_birth,
+        'father_name'         => $request->father_name,
+        'status'              => 'Pending',
+        'applied_date'        => date("Y-m-d"),
+        'created_at'          => date("Y-m-d"),
+    ] );
+
+    $insertid = DB::getPdo()->lastInsertId();
+
+    $aadhaar_pdf = "";
+    if ($request->aadhaar_pdf != null) {
+        $aadhaar_pdf = uniqid().'.'.$request->file('aadhaar_pdf')->extension();
+        $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . 'aadhaarpdf' . DIRECTORY_SEPARATOR);
+        move_uploaded_file($_FILES['aadhaar_pdf']['tmp_name'], $filepath . $aadhaar_pdf);
+    }
+    DB::table('utislpan')->where('id', $insertid)->update([
+        'aadhaar_pdf'         => $aadhaar_pdf,
+    ]);
+    $pan_file = "";
+    if ($request->pan_file != null) {
+        $pan_file = uniqid().'.'.$request->file('pan_file')->extension();
+        $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . 'pancard' . DIRECTORY_SEPARATOR);
+        move_uploaded_file($_FILES['pan_file']['tmp_name'], $filepath . $pan_file);
+    }
+    DB::table('utislpan')->where('id', $insertid)->update([
+        'pan_file'         => $pan_file,
+    ]);
+    $signature = "";
+    if ($request->signature != null) {
+        $signature = uniqid().'.'.$request->file('signature')->extension();
+        $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . 'signature' . DIRECTORY_SEPARATOR);
+        move_uploaded_file($_FILES['signature']['tmp_name'], $filepath . $signature);
+    }
+    DB::table('utislpan')->where('id', $insertid)->update([
+        'signature'         => $signature,
+    ]);
+    $photo = "";
+    if ($request->photo != null) {
+        $photo = uniqid().'.'.$request->file('photo')->extension();
+        $filepath = public_path('upload' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . 'photo' . DIRECTORY_SEPARATOR);
+        move_uploaded_file($_FILES['photo']['tmp_name'], $filepath . $photo);
+    }
+    DB::table('utislpan')->where('id', $insertid)->update([
+        'photo'         => $photo,
+    ]);
+
+    $servicepayment = $request->servicepayment;
+    if(Auth::user()->user_type_id == 3){
+        $user_id = $distributor_id;
+    }elseif(Auth::user()->user_type_id == 4){
+        $user_id = $retailer_id;
+    }elseif(Auth::user()->user_type_id == 5){
+        $user_id = $user_id;
+    }
+    $getservicename = DB::table( 'utislpanservice' )->select('service_name')->where('id',$serviceid)->first();
+    $servicename = "";
+    if($getservicename){
+        $servicename = $getservicename->service_name;
+    }
+    $date = date( 'Y-m-d' );
+    $time = date( 'H:i:s' );
+    $service_status = 'Out Payment';
+    $ad_info = 'Service Payment'. ' '. $servicename;
+    $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+    $balance = 0;
+    if($getwallet){
+        $balance = $getwallet->wallet;
+    }
+    $newbalance = $balance + $servicepayment;
+    $newbalance1 = Auth::user()->wallet - $servicepayment;
+   
     $sql = "insert into payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('$user_id','$user_id','2','$servicepayment','$ad_info', '$service_status','$time','$date','$user_id','$newbalance1')";
     DB::insert( DB::raw( $sql ) );
     $sql = "update users set wallet = wallet + $servicepayment where id = 2";

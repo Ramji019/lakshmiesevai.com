@@ -162,6 +162,22 @@ Route::post('/approveramjipayment', [App\Http\Controllers\PaymentsController::cl
 
 Route::get('service', [App\Http\Controllers\ServiceController::class, 'service']);
 
+Route::get('ourservice', [App\Http\Controllers\ServiceController::class, 'ourservice']);
+
+Route::get('viewcanservice', [App\Http\Controllers\ServiceController::class, 'viewcanservice']);
+
+Route::get('viewpattaservice', [App\Http\Controllers\ServiceController::class, 'viewpattaservice']);
+
+Route::get('viewcourseservice', [App\Http\Controllers\ServiceController::class, 'viewcourseservice']);
+
+Route::get('viewvoter', [App\Http\Controllers\ServiceController::class, 'viewvoter']);
+
+Route::get('/utislpanservices', [App\Http\Controllers\ServiceController::class, 'utislpanservices'])->name('utislpanservices');
+
+Route::get('/viewsoftware', [App\Http\Controllers\ServiceController::class, 'viewsoftware'])->name('viewsoftware');
+
+Route::post('/submitutislnew', [App\Http\Controllers\ServiceController::class, 'submitutislnew'])->name('submitutislnew');
+
 Route::get('allservice/{customerid}', [App\Http\Controllers\ServiceController::class, 'allservice']);
 
 Route::get('allservices', [App\Http\Controllers\ServiceController::class, 'allservices']);
@@ -240,7 +256,9 @@ Route::post('/submitapply_rapexam', [App\Http\Controllers\ServiceController::cla
 Route::post('/submitapply_vle_insurance', [App\Http\Controllers\ServiceController::class, 'submitapply_vle_insurance'])->name('submitapply_vle_insurance');
 Route::post('/submitapply_medicalscheme', [App\Http\Controllers\ServiceController::class, 'submitapply_medicalscheme'])->name('submitapply_medicalscheme');
 Route::post('/submitapply_dharsan', [App\Http\Controllers\ServiceController::class, 'submitapply_dharsan'])->name('submitapply_dharsan');
-
+Route::post('/submitapply_patta', [App\Http\Controllers\ServiceController::class, 'submitapply_patta'])->name('submitapply_patta');
+Route::post('/submitutisl_corection', [App\Http\Controllers\ServiceController::class, 'submitutisl_corection'])->name('submitutisl_corection');
+Route::get('pancard_reapply/{txid}', [App\Http\Controllers\ServiceController::class, 'pancard_reapply']);
 
 
 // Update Status
@@ -280,6 +298,9 @@ Route::post('/rapexam_update', [App\Http\Controllers\ServicestatusController::cl
 Route::post('/vleinsurance_update', [App\Http\Controllers\ServicestatusController::class, 'vleinsurance_update'])->name('vleinsurance_update');
 Route::post('/medicalscheme_update', [App\Http\Controllers\ServicestatusController::class, 'medicalscheme_update'])->name('medicalscheme_update');
 Route::post('/dharsan_update', [App\Http\Controllers\ServicestatusController::class, 'dharsan_update'])->name('dharsan_update');
+Route::post('/patta_update', [App\Http\Controllers\ServicestatusController::class, 'patta_update'])->name('patta_update');
+Route::post('/utislupdate', [App\Http\Controllers\ServicestatusController::class, 'utislupdate'])->name('utislupdate');
+Route::post('/utislcorection_update', [App\Http\Controllers\ServicestatusController::class, 'utislcorection_update'])->name('utislcorection_update');
 
 
 // Service Payment
