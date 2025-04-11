@@ -143,6 +143,9 @@
                                                 <label for="" class="form-label">SubService Image</label>
                                                 <input name="sub_service_image" type="file" class="form-control" id="">
                                             </div>
+                                            <label for="editam" class="form-label">Amount</label>
+                                            <input name="amount" maxlength="6" type="text"
+                                            class="form-control number" id="editam" placeholder="Amount">
                                         </div>
 
                                         @if($id == 10)
@@ -169,9 +172,10 @@
 @endsection
 @push('page_scripts')
     <script>
-        function edit_service(id, service_name, status) {
+        function edit_service(id, service_name, status,amount) {
             $("#editname").val(service_name);
             $("#editstatus").val(status);
+            $("#editam").val(amount);
             $("#serviceid").val(id);
             $("#editser").modal("show");
         }

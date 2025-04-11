@@ -189,6 +189,7 @@ public function updatesubservice( Request $request ) {
     DB::table( 'services' )->where('id', $request->service_id)->update( [
         'service_name'  => $request->service_name,
         'status'        => $request->status,
+        'amount'        => $request->amount,
     ] );
 
     $sub_service_image = "";
