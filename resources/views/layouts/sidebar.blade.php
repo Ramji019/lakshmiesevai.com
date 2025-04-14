@@ -29,7 +29,6 @@
                             <li><a href="{{ url('/addfindservice') }}">Add Find Services</a></li>
                             <li><a href="{{ url('/viewfind') }}">View Find</a></li>
                             <li><a href="{{ url('/findpayment') }}">Payment</a></li>
-                            <li><a href="{{ url('/pdfservices') }}">PDF SERVICES</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -58,7 +57,6 @@
                             <li><a href="{{ url('/addpan') }}">Add Pan</a></li>
                             <li><a href="{{ url('/viewpan') }}">View Pan</a></li>
                             <li><a href="{{ url('/panservicepayment') }}">PanPayment</a></li>
-                            <li><a href="{{ url('/panservices') }}">PAN SERVICES</a></li>
                         </ul>
                     </li>
                     {{-- <li class="treeview">
@@ -102,14 +100,14 @@
                             <li><a href="{{ url('/retailers') }}">View Retailer</a></li>
                         </ul>
                     </li>
-                    {{-- <li class="treeview">
+                    <li class="treeview">
                         <a href=""><i class="bx bx-home-heart"></i><span>TNEGA</span>
                             <i class="fa fa-angle-right"></i></a>
                         <ul class="treeview-menu">
                             <li><a href="{{ url('/addcustomer') }}">Add Customer</a></li>
                             <li><a href="{{ url('/customers') }}">View Customers</a></li>
                         </ul>
-                    </li> --}}
+                    </li>
                     <li class="treeview">
                         <a href=""><i class="bx bx-home-heart"></i><span>Our Service</span>
                             <i class="fa fa-angle-right"></i></a>

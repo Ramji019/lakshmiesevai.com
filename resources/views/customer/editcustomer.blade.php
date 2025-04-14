@@ -100,13 +100,13 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                    <div class="mb-3 row">
+                                    {{-- <div class="mb-3 row">
                                             <label for="example-email-input" class="col-sm-2 form-label">Email</label>
                                             <div class="col-sm-10">
                                                 <input value="{{ $cus->email }}" class="form-control" type="email"
                                                     maxlength="30" name="email" placeholder="Email">
                                             </div>
-                                        </div>
+                                        </div> --}}
                                        
                                         <div class="mb-3 row">
                                             <label for="example-url-input" class="col-sm-2 form-label">DOB</label>
@@ -153,7 +153,7 @@
                                             <label for="example-url-input" class="col-sm-2 form-label">Address</label>
                                             <div class="col-sm-10">
                                                 <textarea class="form-control" maxlength="100" type="text" rows="3" name="address" id="example-url-input"
-                                                    placeholder="Address"></textarea>
+                                                    placeholder="Address">{{ $cus->address }}</textarea>
                                             </div>
                                         </div>
                                      </div>

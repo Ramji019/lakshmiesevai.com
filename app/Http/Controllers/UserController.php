@@ -620,7 +620,7 @@ class UserController extends Controller
 
     public function get_taluk($distid)
 {
-  $response = DB::table('taluk')->where('district_id',$distid)->orderBy( 'id', 'Asc' )->get();
+  $response = DB::table('taluk')->where('dist_id',$distid)->orderBy( 'id', 'Asc' )->get();
   return response()->json( $response );
 }
 
