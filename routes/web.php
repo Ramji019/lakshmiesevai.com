@@ -301,7 +301,7 @@ Route::post('/dharsan_update', [App\Http\Controllers\ServicestatusController::cl
 Route::post('/patta_update', [App\Http\Controllers\ServicestatusController::class, 'patta_update'])->name('patta_update');
 Route::post('/utislupdate', [App\Http\Controllers\ServicestatusController::class, 'utislupdate'])->name('utislupdate');
 Route::post('/utislcorection_update', [App\Http\Controllers\ServicestatusController::class, 'utislcorection_update'])->name('utislcorection_update');
-
+Route::post('/cancertificate_find_update', [App\Http\Controllers\ServicestatusController::class, 'cancertificate_find_update'])->name('cancertificate_find_update');
 
 // Service Payment
 
