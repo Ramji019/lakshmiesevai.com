@@ -86,6 +86,10 @@
 
                                            <a href="{{ url('/servicestatus') }}/{{ $ser->status }}/{{ $ser->id }}/{{ $ser->service_id }}"
                                             class="btn btn-sm btn-warning">{{ $ser->status }}</a>
+                                            
+                                            @elseif($ser->status == "Approved")
+                                            <a href="{{ url('/servicestatus') }}/{{ $ser->status }}/{{ $ser->id }}/{{ $ser->service_id }}"
+                                                class="btn btn-sm btn-warning">{{ $ser->status }}</a>
                                             @else
                                             <button type="button" class="btn btn-sm btn-warning" disabled>{{ $ser->status }}</button>
                                             @if($ser->service_id == "69" || $ser->service_id == "70")
