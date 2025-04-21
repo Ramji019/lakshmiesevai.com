@@ -57,19 +57,23 @@
                                     @if($status == "Processing")
                                     <td>{{ $ser->application_no }}</td>
                                     <td>
-                                    @if($ser->selects == "File")
+                                   @if($ser->selects == "File")
+                                    <a download href="{{ URL::to('/') }}/upload/services/acknowledgement/{{ $ser->acknowledgement }}" class="btn btn-success me-2 btn-sm">Download</a>
+                                    @elseif($ser->acknowledgement != "")
                                     <a download href="{{ URL::to('/') }}/upload/services/acknowledgement/{{ $ser->acknowledgement }}" class="btn btn-success me-2 btn-sm">Download</a>
                                     @endif
-                                    </td>
+                                   </td>
                                     @elseif($status == "Approved")
                                     <td>{{ $ser->application }}</td>
                                     <td>
-                                     @if($ser->lects == "File")
+                                   @if($ser->lects == "File")
+                                    <a download href="{{ URL::to('/') }}/upload/services/certificate/{{ $ser->certificate }}" class="btn btn-success me-2 btn-sm">Download</a>
+                                    @elseif($ser->certificate != "")
                                     <a download href="{{ URL::to('/') }}/upload/services/certificate/{{ $ser->certificate }}" class="btn btn-success me-2 btn-sm">Download</a>
                                     @endif
-                                    </td>
+                                   </td>
                                     @endif
-                                    @php 
+                                    @php  
                                     $apply_user_id = 0;
                                     if ($ser->distributor_id == 0 && $ser->retailer_id == 0) {
                                         $apply_user_id = $ser->user_id;
