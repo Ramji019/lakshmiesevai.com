@@ -3204,7 +3204,7 @@ public function submit_statusupdate_msme(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -3377,7 +3377,7 @@ public function submit_statusupdate_itr(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -3528,7 +3528,7 @@ public function submit_statusupdate_gst(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -3714,7 +3714,7 @@ public function submit_statusupdate_tecexam(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -3856,7 +3856,7 @@ public function submit_statusupdate_tecexamregister(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -4004,7 +4004,7 @@ public function submit_statusupdate_teccorrection(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -4148,7 +4148,7 @@ public function insexam_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -4284,7 +4284,7 @@ public function iibfexam_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -4441,7 +4441,7 @@ public function rapexam_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -4585,7 +4585,7 @@ public function vleinsurance_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -4720,7 +4720,7 @@ public function submitsmartcard_register_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -5309,7 +5309,7 @@ public function aadhaarcardupdate(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -5610,7 +5610,7 @@ public function findaadhaar_numberupdate(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -5727,7 +5727,7 @@ public function caneditupdate(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -6040,7 +6040,7 @@ public function cancertificate_find_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -6181,7 +6181,7 @@ public function smartcard_update1(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -6450,7 +6450,7 @@ public function voterid_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -6631,7 +6631,7 @@ public function bond_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -6762,7 +6762,7 @@ public function fssaiservice_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -6927,7 +6927,7 @@ public function covid_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -7057,7 +7057,7 @@ public function nalavariyam_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -7201,7 +7201,7 @@ public function driving_license_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -7345,7 +7345,7 @@ public function pancard_update(Request $request){
     $service_status = 'Out Payment';
     $ad_info = "Service Refund For". ' ' .$servicename;
 
-    $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+    $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
     $balance = 0;
     if($getwallet){
         $balance = $getwallet->wallet;
@@ -7517,7 +7517,7 @@ public function tailorshop_update(Request $request){
     $service_status = 'Out Payment';
     $ad_info = "Service Refund For". ' ' .$servicename;
 
-    $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+    $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
     $balance = 0;
     if($getwallet){
         $balance = $getwallet->wallet;
@@ -7669,7 +7669,7 @@ public function update_pmkissan(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -7803,7 +7803,7 @@ public function tec_csc_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -7982,7 +7982,7 @@ public function medicalscheme_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -8152,7 +8152,7 @@ public function birthcertificate_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -8288,7 +8288,7 @@ public function dharsan_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -8434,7 +8434,7 @@ public function software_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
     
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -8559,7 +8559,7 @@ public function patta_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
 
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -8708,7 +8708,7 @@ public function utislupdate(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
 
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -8721,12 +8721,12 @@ public function utislupdate(Request $request){
         $newbalance = $balance - $payment;
         $newbalance1 = $balance1 + $payment;
 
-        $sql = "insert into payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('$apply_user_id','1','$apply_user_id','$payment','$ad_info', '$service_status','$time','$date','$apply_user_id','$newbalance')";
+        $sql = "insert into payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('$apply_user_id','2','$apply_user_id','$payment','$ad_info', '$service_status','$time','$date','$apply_user_id','$newbalance')";
         DB::insert( DB::raw( $sql ) );
         $sql = "update users set wallet = wallet - $payment where id = 2";
         DB::update( DB::raw( $sql ) );
         $service_status = 'IN Payment';
-        $sql = "insert into payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('$apply_user_id','$apply_user_id','1','$payment','$ad_info', '$service_status','$time','$date','$apply_user_id','$newbalance1')";
+        $sql = "insert into payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('$apply_user_id','$apply_user_id','2','$payment','$ad_info', '$service_status','$time','$date','$apply_user_id','$newbalance1')";
         DB::insert( DB::raw( $sql ) );
         $sql = "update users set wallet = wallet + $payment where id = $apply_user_id";
         DB::update( DB::raw( $sql ) );
@@ -8862,7 +8862,7 @@ public function utislcorection_update(Request $request){
         $service_status = 'Out Payment';
         $ad_info = "Service Refund For". ' ' .$servicename;
 
-        $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+        $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
         $balance = 0;
         if($getwallet){
             $balance = $getwallet->wallet;
@@ -8875,12 +8875,12 @@ public function utislcorection_update(Request $request){
         $newbalance = $balance - $payment;
         $newbalance1 = $balance1 + $payment;
 
-        $sql = "insert into payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('$apply_user_id','1','$apply_user_id','$payment','$ad_info', '$service_status','$time','$date','$apply_user_id','$newbalance')";
+        $sql = "insert into payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('$apply_user_id','2','$apply_user_id','$payment','$ad_info', '$service_status','$time','$date','$apply_user_id','$newbalance')";
         DB::insert( DB::raw( $sql ) );
         $sql = "update users set wallet = wallet - $payment where id = 2";
         DB::update( DB::raw( $sql ) );
         $service_status = 'IN Payment';
-        $sql = "insert into payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('$apply_user_id','$apply_user_id','1','$payment','$ad_info', '$service_status','$time','$date','$apply_user_id','$newbalance1')";
+        $sql = "insert into payment (log_id,from_id,to_id,amount,ad_info,service_status,time,paydate,pay_id,newbalance) values ('$apply_user_id','$apply_user_id','2','$payment','$ad_info', '$service_status','$time','$date','$apply_user_id','$newbalance1')";
         DB::insert( DB::raw( $sql ) );
         $sql = "update users set wallet = wallet + $payment where id = $apply_user_id";
         DB::update( DB::raw( $sql ) );
