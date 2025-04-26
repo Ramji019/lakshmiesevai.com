@@ -1495,7 +1495,7 @@ if($apply_user_id != Auth::user()->id){
     $service_status = 'Out Payment';
     $ad_info = "Service Refund For". ' ' .$servicename;
 
-    $getwallet = DB::table( 'users' )->select('wallet')->where('id',1)->first();
+    $getwallet = DB::table( 'users' )->select('wallet')->where('id',2)->first();
     $balance = 0;
     if($getwallet){
         $balance = $getwallet->wallet;
