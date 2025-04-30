@@ -319,7 +319,7 @@
         </div>
     </div>
 </div>
-<div class="col-md-6">
+{{-- <div class="col-md-6">
     <div class="card">
         <div class="modal fade" id="customer" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -398,7 +398,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 
